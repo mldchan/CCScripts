@@ -1,9 +1,9 @@
 VERSION = "1.03"
 
-local utils = require("utils")
+require("utils")
 local json = require("json")
 
-config_file = utils.readFile("config.json")
+config_file = readFile("config.json")
 config = json.decode(config_file)
 
 local mon = peripheral.wrap(config.side)
