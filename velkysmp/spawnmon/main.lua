@@ -112,10 +112,10 @@ function drawMainScreen()
 
     mon.clear()
     mon.setCursorPos(1, 1)
-    mon.write("Akatsuki's VelkySMP monitor - since 2024/02/25!")
+    prettyWrite(mon, "Akatsuki's VelkySMP monitor - since 2024/02/25!")
 
     mon.setCursorPos(1, 3)
-    mon.write("Top players by online and playtime")
+    prettyWrite(mon, "Top players by online and playtime")
 
     local items_count = mon_height - 5
     for k, v in ipairs(api_sorted) do
