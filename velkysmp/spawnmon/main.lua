@@ -147,9 +147,7 @@ drawMainScreen()
 
 while true do
   event, p1, p2, p3, p4, p5 = os.pullEvent()
-  print(event, p1, p2, p3, p4, p5)
   if event == "monitor_touch" then
-    print("mon_width", mon_width, "mon_height", mon_height)
     if p2 > 40 and p2 < 47 and p3 == mon_height then
       show_settings = not show_settings
       print("show settings")
