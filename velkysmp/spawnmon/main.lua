@@ -1,14 +1,9 @@
-VERSION = "1.02"
+VERSION = "1.03"
+
+local json = require("json")
 
 local mon = peripheral.wrap("right")
 local mon_width, mon_height = mon.getSize()
-
-function selfUpdate()
-  local new_startup_lua_file = http.get("https://akatsuki.nekoweb.org/cc/spawnmon/startup.lua").readAll()
-  local startup_file_handle = fs.open("startup.lua", "w")
-  startup_file_handle.write(new_startup_lua_file)
-  startup_file_handle.close()
-end
 
 local setting_show_online_first = false
 local has_loaded = false
@@ -143,18 +138,12 @@ mon.clear()
 mon.setCursorPos(1, 1)
 mon.write("Akatsuki's VelkySMP monitor - since 2024/02/25!")
 
-mon.setCursorPos(2, 3)
-mon.write("Checking for updates...")
-
-selfUpdate()
-
 mon.clear()
 
 mon.setCursorPos(2, 3)
 mon.write("Refreshing... this may take a while")
 
 drawMainScreen()
-
 
 while true do
   event, p1, p2, p3, p4, p5 = os.pullEvent()
