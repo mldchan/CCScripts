@@ -1,4 +1,4 @@
-VERSION = "1.04"
+VERSION = "1.05"
 
 require("utils")
 local json = require("json")
@@ -76,8 +76,8 @@ function drawMainScreen()
     mon.setCursorPos(6, 9)
     mon.setTextColor(colors.orange)
     mon.write("[ Close ]")
-    mon.setTextColor(colors.black)
-    mon.setBackgroundColor(colors.white)
+    mon.setTextColor(colors.white)
+    mon.setBackgroundColor(colors.black)
   else
     if not has_loaded then
       local api_content = http.get("https://velkysmp-mon.vercel.app/api/get").readAll()
