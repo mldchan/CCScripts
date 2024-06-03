@@ -1,4 +1,4 @@
-VERSION = "1.03"
+VERSION = "1.04"
 
 require("utils")
 local json = require("json")
@@ -7,6 +7,11 @@ config_file = readFile("config.json")
 config = json.decode(config_file)
 
 local mon = peripheral.wrap(config.side)
+
+if config.text_scale ~= nil then
+  mon.setTextScale(config.text_scale)
+end
+
 local mon_width, mon_height = mon.getSize()
 
 local setting_show_online_first = false
