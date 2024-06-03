@@ -103,9 +103,9 @@ function drawMainScreen()
     end
 
     if small_text then
-      mon.setTextScale(0.5)
+      mon.setTextScale((config.text_scale or 1) / 2)
     else
-      mon.setTextScale(1)
+      mon.setTextScale(config.text_scale or 1)
     end
 
     mon_width, mon_height = mon.getSize()
