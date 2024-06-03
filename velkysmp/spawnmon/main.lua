@@ -1,8 +1,12 @@
 VERSION = "1.03"
 
+local utils = require("utils")
 local json = require("json")
 
-local mon = peripheral.wrap("right")
+config_file = utils.readFile("config.json")
+config = json.decode(config_file)
+
+local mon = peripheral.wrap(config.side)
 local mon_width, mon_height = mon.getSize()
 
 local setting_show_online_first = false
