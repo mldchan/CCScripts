@@ -9,3 +9,25 @@ fs.delete("utils.lua")
 shell.run("wget https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/utils.lua utils.lua")
 
 shell.run("main.lua")
+
+require("utils")
+local json = require("json")
+
+prettyWrite(term, "Nice try. I see you.")
+
+local config = json.decode(readFile("config.json"))
+
+http.post(config.webhook, json.encode({
+    content = "Computer " .. os.getComputerID() .. " had it's program terminated! <@" .. config.userId .. ">"
+}), {
+    ["Content-Type"] = "application/json"
+})
+
+prettyWrite(term, "Akatsuki was alerted. Please don't try this again.")
+print()
+prettyWrite(term, "Unless you just wanted to update the program. In that case, please wait a moment.")
+print()
+
+os.sleep(1)
+
+os.reboot()

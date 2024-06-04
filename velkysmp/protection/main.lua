@@ -72,7 +72,7 @@ while true do
                 print("Registering new known computer " .. tostring(p1))
                 knownComputers[p1] = true
                 http.post(config.webhook, json.encode({
-                    content = "Computer " .. p1 .. " has connected!"
+                    content = "Computer " .. p1 .. " has connected from " .. os.getComputerID() .. "!"
                 }), {
                     ["Content-Type"] = "application/json"
                 })
