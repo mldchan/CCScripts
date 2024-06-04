@@ -22,11 +22,11 @@ while true do
 
     if event == "peripheral_detach" then
         -- p1 - side, p2 - type
-        http.post(config.webhook, json.encode({
-            content = "Peripheral " .. p1 .. " was detached! <@" .. config.userId .. ">"
-        }), {
-            ["Content-Type"] = "application/json"
-        })
+        -- http.post(config.webhook, json.encode({
+        --     content = "Peripheral " .. p1 .. " was detached! <@" .. config.userId .. ">"
+        -- }), {
+        --     ["Content-Type"] = "application/json"
+        -- })
     end
 
     if event == "timer" then
@@ -34,11 +34,11 @@ while true do
         for index, value in pairs(computerMsgsStatus) do
             print("Computer " .. index .. " status: " .. value)
             if value == "sent" then
-                http.post(config.webhook, json.encode({
-                    content = "Computer " .. index .. " did not respond! <@" .. config.userId .. ">"
-                }), {
-                    ["Content-Type"] = "application/json"
-                })
+                -- http.post(config.webhook, json.encode({
+                --     content = "Computer " .. index .. " did not respond! <@" .. config.userId .. ">"
+                -- }), {
+                --     ["Content-Type"] = "application/json"
+                -- })
             end
         end
         
@@ -63,11 +63,11 @@ while true do
             if not knownComputers[p1] then
                 print("Registering new known computer " .. tostring(p1))
                 knownComputers[p1] = true
-                http.post(config.webhook, json.encode({
-                    content = "Computer " .. p1 .. " has connected!"
-                }), {
-                    ["Content-Type"] = "application/json"
-                })
+                -- http.post(config.webhook, json.encode({
+                --     content = "Computer " .. p1 .. " has connected!"
+                -- }), {
+                --     ["Content-Type"] = "application/json"
+                -- })
             end
         end
     end
