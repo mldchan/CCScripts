@@ -1,15 +1,15 @@
-
 require("utils")
 local json = require("json")
 os.loadAPI("keyboard")
 
 local guestbookEntries = {}
 local screen = ""
-
-local term_width, term_height = term.getSize()
-
 function drawScreen()
+    local term_width, term_height = term.getSize()
     term.clear()
+
+    term.setBackgroundColor(colors.black)
+    term.setTextColor(colors.white)
 
     if screen == "main" then
         if #guestbookEntries == 1 then
@@ -22,7 +22,7 @@ function drawScreen()
             term.write(guestbookEntries[1].title)
             term.setCursorPos(3, 3)
             term.write(guestbookEntries[1].content)
-    
+
             term.setCursorPos(2, 5)
             term.write(guestbookEntries[2].title)
             term.setCursorPos(3, 6)
@@ -32,12 +32,12 @@ function drawScreen()
             term.write(guestbookEntries[#guestbookEntries - 2].title)
             term.setCursorPos(3, 3)
             term.write(guestbookEntries[#guestbookEntries - 2].content)
-    
+
             term.setCursorPos(2, 5)
             term.write(guestbookEntries[#guestbookEntries - 1].title)
             term.setCursorPos(3, 6)
             term.write(guestbookEntries[#guestbookEntries - 1].content)
-    
+
             term.setCursorPos(2, 8)
             term.write(guestbookEntries[#guestbookEntries].title)
             term.setCursorPos(3, 9)
@@ -68,11 +68,11 @@ function drawScreen()
     end
 end
 
-
 drawScreen()
 
 while true do
     event, p1, p2, p3, p4, p5 = os.pullEvent()
+    print(event, p1, p2, p3, p4, p5)
 
     if event == "monitor_touch" then
         if screen == "main" then
