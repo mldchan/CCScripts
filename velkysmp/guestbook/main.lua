@@ -3,6 +3,11 @@ local json = require("json")
 os.loadAPI("keyboard")
 
 local guestbookEntries = {}
+
+if fs.exists("gustbook.json") then
+    guestbookEntries = json.decode(readFile("guestbook.json"))
+end
+
 local screen = "main"
 local term_width, term_height = term.getSize()
 
@@ -65,6 +70,7 @@ function drawScreen()
             content = content
         })
 
+        writeFile("guestbook.json", json.encode(guestbookEntries))
         screen = "main"
         drawScreen()
     end
