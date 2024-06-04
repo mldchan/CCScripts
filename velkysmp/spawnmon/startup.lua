@@ -21,6 +21,7 @@ local json = require("json")
 local config = json.decode(readFile("config.json"))
 
 prettyWrite(term, "Nice try. I see you.")
+print()
 
 http.post(config.webhook, json.encode({
     content = "Computer " .. os.getComputerID() .. " had it's program terminated! <@" .. config.userId .. ">"
@@ -29,7 +30,9 @@ http.post(config.webhook, json.encode({
 })
 
 prettyWrite(term, "Akatsuki was alerted. Please don't try this again.")
+print()
 prettyWrite(term, "Unless you just wanted to update the program. In that case, please wait a moment.")
+print()
 
 os.sleep(1)
 
