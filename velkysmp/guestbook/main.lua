@@ -18,36 +18,18 @@ function drawScreen()
     term.setTextColor(colors.white)
 
     if screen == "main" then
-        if #guestbookEntries == 1 then
-            term.setCursorPos(2, 2)
-            term.write(guestbookEntries[1].title)
-            term.setCursorPos(3, 4)
-            term.write(guestbookEntries[1].content)
-        elseif #guestbookEntries == 2 then
-            term.setCursorPos(2, 2)
-            term.write(guestbookEntries[1].title)
-            term.setCursorPos(3, 3)
-            term.write(guestbookEntries[1].content)
+        for index, value in ipairs(guestbookEntries) do
+            -- render until out of screen
+            local y = index * 3 + 2
 
-            term.setCursorPos(2, 5)
-            term.write(guestbookEntries[2].title)
-            term.setCursorPos(3, 6)
-            term.write(guestbookEntries[2].content)
-        elseif #guestbookEntries >= 3 then
-            term.setCursorPos(2, 2)
-            term.write(guestbookEntries[#guestbookEntries - 2].title)
-            term.setCursorPos(3, 3)
-            term.write(guestbookEntries[#guestbookEntries - 2].content)
+            if y > term_height - 3 then
+                break
+            end
 
-            term.setCursorPos(2, 5)
-            term.write(guestbookEntries[#guestbookEntries - 1].title)
-            term.setCursorPos(3, 6)
-            term.write(guestbookEntries[#guestbookEntries - 1].content)
-
-            term.setCursorPos(2, 8)
-            term.write(guestbookEntries[#guestbookEntries].title)
-            term.setCursorPos(3, 9)
-            term.write(guestbookEntries[#guestbookEntries].content)
+            term.setCursorPos(2, y)
+            term.write(value.title)
+            term.setCursorPos(3, y + 1)
+            term.write(value.content)
         end
 
         term.setCursorPos(2, term_height - 1)
