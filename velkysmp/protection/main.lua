@@ -51,51 +51,40 @@ while true do
             end
         end
 
+        -- add missing computers to knownComputers
+        for index, value in ipairs(computers) do
+            if not knownComputers[value] then
+                print("Registering new known computer " .. tostring(value))
+                knownComputers[value] = true
+                http.post(config.webhook, json.encode({
+                    content = "Computer " .. value .. " has connected! <@" .. config.userId .. ">"
+                }), {
+                    ["Content-Type"] = "application/json"
+                })
+            end
+        end
+
+        -- check computers for any PC's that dissapeared
+        -- send message on Discord
+        for index, value in pairs(knownComputers) do
+            if not table.contains(computers, index) then
+                print("Computer " .. index .. " has disconnected!")
+                http.post(config.webhook, json.encode({
+                    content = "Computer " .. index .. " has disconnected! <@" .. config.userId .. ">"
+                }), {
+                    ["Content-Type"] = "application/json"
+                })
+
+                knownComputers[index] = nil
+            end
+        end
+
         for index, value in ipairs(computers) do
             print("Checking " .. tostring(value))
 
             rednet.send(value, "ping", "Akatsuki")
             print("Sent ping to " .. tostring(value))
             computerMsgsStatus[value] = "sent"
-            -- local id, msg = rednet.receive("Akatsuki", 1)
-            -- if id ~= nil then
-            --     -- Computer responded, add to knownComputers if not already there
-            --     if not knownComputers[value] then
-            --         print("Registering new known computer " .. tostring(value))
-            --         knownComputers[value] = true
-            --         http.post(config.webhook, json.encode({
-            --             content = "Computer " .. value .. " has connected!"
-            --         }), {
-            --             ["Content-Type"] = "application/json"
-            --         })
-            --     end
-            -- else
-            --     -- Computer did not respond, send notification
-            --     if knownComputers[value] then
-            --         print("Computer " .. value .. " did not respond!")
-            --         http.post(config.webhook, json.encode({
-            --             content = "Computer " .. value .. " did not respond! <@" .. config.userId .. ">"
-            --         }), {
-            --             ["Content-Type"] = "application/json"
-            --         })
-
-            --         knownComputers[value] = nil -- disable repeated pings for PC
-            --     end
-            -- end
-        end
-
-        -- ping all known computers
-        for index, value in pairs(knownComputers) do
-            rednet.send(index, "ping", "Akatsuki")
-            computerMsgsStatus[index] = "sent"
-            -- local id, msg = rednet.receive("Akatsuki", 1)
-            -- if id == nil then
-            --     http.post(config.webhook, json.encode({
-            --         content = "Computer " .. index .. " did not respond! <@" .. config.userId .. ">"
-            --     }), {
-            --         ["Content-Type"] = "application/json"
-            --     })
-            -- end
         end
     end
 
@@ -108,23 +97,7 @@ while true do
 
         if p2 == "pong" and p3 == "Akatsuki" then
             print("Received pong from " .. tostring(p1))
-            -- for index, value in pairs(computerMsgsStatus) do
-            --     if value == p1 then
-            --         print("Found computer " .. tostring(index) .. " in computerMsgsStatus")
-            --         computerMsgsStatus[index] = "received"
-            --         if not knownComputers[index] then
-            --             print("Registering new known computer " .. tostring(index))
-            --             knownComputers[index] = true
-            --             http.post(config.webhook, json.encode({
-            --                 content = "Computer " .. index .. " has connected!"
-            --             }), {
-            --                 ["Content-Type"] = "application/json"
-            --             })
-            --         end
-            --     end
-            -- end
             computerMsgsStatus[p1] = "received"
-            knownComputers[p1] = true
         end
     end
 
