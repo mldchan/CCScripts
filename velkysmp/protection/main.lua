@@ -13,6 +13,8 @@ rednet.open(config.modemSide)
 rednet.host("Akatsuki", config.hostname)
 
 local knownComputers = {}
+local computerMsgsStatus = {}
+-- there are 3 states in computerMsgsStatus: nil, "sent", "received"
 
 while true do
     os.startTimer(5)
@@ -29,6 +31,16 @@ while true do
 
     if event == "timer" then
         -- p1 - timer id
+        for index, value in pairs(computerMsgsStatus) do
+            if value == "sent" then
+                http.post(config.webhook, json.encode({
+                    content = "Computer " .. index .. " did not respond! <@" .. config.userId .. ">"
+                }), {
+                    ["Content-Type"] = "application/json"
+                })
+            end
+        end
+
         local computers = { rednet.lookup("Akatsuki") }
 
         -- remove self from table if inside
@@ -42,44 +54,46 @@ while true do
             print("Checking " .. tostring(value))
 
             rednet.send(value, "ping", "Akatsuki")
-            local id, msg = rednet.receive("Akatsuki", 1)
-            if id ~= nil then
-                -- Computer responded, add to knownComputers if not already there
-                if not knownComputers[value] then
-                    print("Registering new known computer " .. tostring(value))
-                    knownComputers[value] = true
-                    http.post(config.webhook, json.encode({
-                        content = "Computer " .. value .. " has connected!"
-                    }), {
-                        ["Content-Type"] = "application/json"
-                    })
-                end
-            else
-                -- Computer did not respond, send notification
-                if knownComputers[value] then
-                    print("Computer " .. value .. " did not respond!")
-                    http.post(config.webhook, json.encode({
-                        content = "Computer " .. value .. " did not respond! <@" .. config.userId .. ">"
-                    }), {
-                        ["Content-Type"] = "application/json"
-                    })
+            computerMsgsStatus[value] = "sent"
+            -- local id, msg = rednet.receive("Akatsuki", 1)
+            -- if id ~= nil then
+            --     -- Computer responded, add to knownComputers if not already there
+            --     if not knownComputers[value] then
+            --         print("Registering new known computer " .. tostring(value))
+            --         knownComputers[value] = true
+            --         http.post(config.webhook, json.encode({
+            --             content = "Computer " .. value .. " has connected!"
+            --         }), {
+            --             ["Content-Type"] = "application/json"
+            --         })
+            --     end
+            -- else
+            --     -- Computer did not respond, send notification
+            --     if knownComputers[value] then
+            --         print("Computer " .. value .. " did not respond!")
+            --         http.post(config.webhook, json.encode({
+            --             content = "Computer " .. value .. " did not respond! <@" .. config.userId .. ">"
+            --         }), {
+            --             ["Content-Type"] = "application/json"
+            --         })
 
-                    knownComputers[value] = nil -- disable repeated pings for PC
-                end
-            end
+            --         knownComputers[value] = nil -- disable repeated pings for PC
+            --     end
+            -- end
         end
 
         -- ping all known computers
         for index, value in pairs(knownComputers) do
             rednet.send(index, "ping", "Akatsuki")
-            local id, msg = rednet.receive("Akatsuki", 1)
-            if id == nil then
-                http.post(config.webhook, json.encode({
-                    content = "Computer " .. index .. " did not respond! <@" .. config.userId .. ">"
-                }), {
-                    ["Content-Type"] = "application/json"
-                })
-            end
+            computerMsgsStatus[index] = "sent"
+            -- local id, msg = rednet.receive("Akatsuki", 1)
+            -- if id == nil then
+            --     http.post(config.webhook, json.encode({
+            --         content = "Computer " .. index .. " did not respond! <@" .. config.userId .. ">"
+            --     }), {
+            --         ["Content-Type"] = "application/json"
+            --     })
+            -- end
         end
     end
 
@@ -87,6 +101,12 @@ while true do
         -- p1 - sender id, p2 - message, p3 - protocol
         if p2 == "ping" and p3 == "Akatsuki" then
             rednet.send(p1, "pong", "Akatsuki")
+
+            for index, value in pairs(computerMsgsStatus) do
+                if index == p1 then
+                    computerMsgsStatus[index] = "received"
+                end
+            end
         end
     end
 
