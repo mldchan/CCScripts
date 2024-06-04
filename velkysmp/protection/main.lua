@@ -16,40 +16,42 @@ local knownComputers = {}
 local computerMsgsStatus = {}
 -- there are 3 states in computerMsgsStatus: nil, "sent", "received"
 
-os.startTimer(5)
+local timer = os.startTimer(5)
 
 while true do
     event, p1, p2, p3, p4, p5 = os.pullEvent()
 
     if event == "peripheral_detach" then
         -- p1 - side, p2 - type
-        -- http.post(config.webhook, json.encode({
-        --     content = "Peripheral " .. p1 .. " was detached! <@" .. config.userId .. ">"
-        -- }), {
-        --     ["Content-Type"] = "application/json"
-        -- })
+        http.post(config.webhook, json.encode({
+            content = "Peripheral " .. p1 .. " was detached! <@" .. config.userId .. ">"
+        }), {
+            ["Content-Type"] = "application/json"
+        })
     end
 
     if event == "timer" then
         -- p1 - timer id
-        for index, value in pairs(computerMsgsStatus) do
-            print("Computer " .. index .. " status: " .. value)
-            if value == "sent" then
-                -- http.post(config.webhook, json.encode({
-                --     content = "Computer " .. index .. " did not respond! <@" .. config.userId .. ">"
-                -- }), {
-                --     ["Content-Type"] = "application/json"
-                -- })
+        if timer == p1 then
+            for index, value in pairs(computerMsgsStatus) do
+                print("Computer " .. index .. " status: " .. value)
+                if value == "sent" then
+                    http.post(config.webhook, json.encode({
+                        content = "Computer " .. index .. " did not respond! <@" .. config.userId .. ">"
+                    }), {
+                        ["Content-Type"] = "application/json"
+                    })
+                end
             end
+            
+            rednet.broadcast("ping", "Akatsuki")
+            -- set all known computers to "Sent"
+            for index, value in pairs(knownComputers) do
+                computerMsgsStatus[index] = "sent"
+            end
+    
+            timer = os.startTimer(5)
         end
-        
-        rednet.broadcast("ping", "Akatsuki")
-        -- set all known computers to "Sent"
-        for index, value in pairs(knownComputers) do
-            computerMsgsStatus[index] = "sent"
-        end
-
-        os.startTimer(5)
     end
 
     if event == "rednet_message" then
@@ -66,11 +68,11 @@ while true do
             if not knownComputers[p1] then
                 print("Registering new known computer " .. tostring(p1))
                 knownComputers[p1] = true
-                -- http.post(config.webhook, json.encode({
-                --     content = "Computer " .. p1 .. " has connected!"
-                -- }), {
-                --     ["Content-Type"] = "application/json"
-                -- })
+                http.post(config.webhook, json.encode({
+                    content = "Computer " .. p1 .. " has connected!"
+                }), {
+                    ["Content-Type"] = "application/json"
+                })
             end
         end
     end
