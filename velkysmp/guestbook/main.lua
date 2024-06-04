@@ -50,7 +50,7 @@ function drawScreen()
         minutes = string.format("%02d", minutes)
 
         term.setCursorPos(1,1)
-        term.write(tostring(year) .. "/" .. tostring(month) .. "/" .. tostring(day) .. " " .. tostring(hours) .. ":" .. tostring(minutes))
+        term.write(tostring(year) .. "/" .. tostring(month) .. "/" .. tostring(day) .. " " .. tostring(hours) .. ":" .. tostring(minutes) .. " -- MC time!")
     elseif screen == "sign" then
         term.setCursorPos(2, 2)
         prettyWrite(term, "Please enter the title of your entry.")
