@@ -16,6 +16,9 @@ term.clear()
 print("Running main.lua...")
 shell.run("main.lua")
 
+require("utils")
+local json = require("json")
+
 prettyWrite(term, "Nice try. I see you.")
 
 http.post(config.webhook, json.encode({
