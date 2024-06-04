@@ -9,7 +9,7 @@ shell.run("wget https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/ma
 fs.delete("utils.lua")
 shell.run("wget https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/utils.lua utils.lua")
 
-shell.run("main.lua")
+shell.run("monitor back main.lua")
 
 require("utils")
 local json = require("json")
