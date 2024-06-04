@@ -1,4 +1,3 @@
-
 require("utils")
 local json = require("json")
 
@@ -18,7 +17,7 @@ local knownComputers = {}
 while true do
     os.startTimer(5)
     event, p1, p2, p3, p4, p5 = os.pullEvent()
-    
+
     if event == "peripheral_detach" then
         -- p1 - side, p2 - type
         http.post(config.webhook, json.encode({
@@ -30,29 +29,36 @@ while true do
 
     if event == "timer" then
         -- p1 - timer id
-        local computers = {rednet.lookup("Akatsuki")}
+        local computers = { rednet.lookup("Akatsuki") }
 
         for index, value in ipairs(computers) do
-            print("Checking " .. tostring(index))
+            print("Checking " .. tostring(value))
 
-            rednet.send(value, "ping", "Akatsuki")
-            local id, msg = rednet.receive("Akatsuki", 1)
-            if id == nil then
-                http.post(config.webhook, json.encode({
-                    content = "Computer " .. value .. " did not respond! <@" .. config.userId .. ">"
-                }), {
-                    ["Content-Type"] = "application/json"
-                })
-            end
-
-            -- add to known computers if not already there
-            if not knownComputers[value] then
-                knownComputers[value] = true
-                http.post(config.webhook, json.encode({
-                    content = "Computer " .. value .. " has connected!"
-                }), {
-                    ["Content-Type"] = "application/json"
-                })
+            if knownComputers[value] then
+                rednet.send(value, "ping", "Akatsuki")
+                local id, msg = rednet.receive("Akatsuki", 1)
+                if id ~= nil then
+                    -- Computer responded, add to knownComputers if not already there
+                    if not knownComputers[value] then
+                        print("Registering new known computer " .. tostring(value))
+                        knownComputers[value] = true
+                        http.post(config.webhook, json.encode({
+                            content = "Computer " .. value .. " has connected!"
+                        }), {
+                            ["Content-Type"] = "application/json"
+                        })
+                    end
+                else
+                    -- Computer did not respond, send notification
+                    if knownComputers[value] then
+                        print("Computer " .. value .. " did not respond!")
+                        http.post(config.webhook, json.encode({
+                            content = "Computer " .. value .. " did not respond! <@" .. config.userId .. ">"
+                        }), {
+                            ["Content-Type"] = "application/json"
+                        })
+                    end
+                end
             end
         end
 
@@ -76,6 +82,7 @@ while true do
         end
     end
 
-    writeToLog("log " .. tostring(event) .. " " .. tostring(p1) .. " " .. tostring(p2) .. " " .. tostring(p3) .. " " .. tostring(p4) .. " " .. tostring(p5))
-
+    writeToLog("log " ..
+    tostring(event) ..
+    " " .. tostring(p1) .. " " .. tostring(p2) .. " " .. tostring(p3) .. " " .. tostring(p4) .. " " .. tostring(p5))
 end
