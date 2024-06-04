@@ -1,5 +1,10 @@
 
 function readFile(filename)
+    -- check if file exists, if not, return empty string
+    if not fs.exists(filename) then
+        return ""
+    end
+
     file = fs.open(filename, "r")
     content = file.readAll()
     file.close()
