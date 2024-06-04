@@ -32,6 +32,7 @@ while true do
     if event == "timer" then
         -- p1 - timer id
         for index, value in pairs(computerMsgsStatus) do
+            print("Computer " .. index .. " status: " .. value)
             if value == "sent" then
                 http.post(config.webhook, json.encode({
                     content = "Computer " .. index .. " did not respond! <@" .. config.userId .. ">"
@@ -54,6 +55,7 @@ while true do
             print("Checking " .. tostring(value))
 
             rednet.send(value, "ping", "Akatsuki")
+            print("Sent ping to " .. tostring(value))
             computerMsgsStatus[value] = "sent"
             -- local id, msg = rednet.receive("Akatsuki", 1)
             -- if id ~= nil then
@@ -101,23 +103,28 @@ while true do
         -- p1 - sender id, p2 - message, p3 - protocol
         if p2 == "ping" and p3 == "Akatsuki" then
             rednet.send(p1, "pong", "Akatsuki")
+            print("Ping response sent to " .. tostring(p1))
         end
 
         if p2 == "pong" and p3 == "Akatsuki" then
-            for index, value in pairs(computerMsgsStatus) do
-                if value == p1 then
-                    computerMsgsStatus[index] = "received"
-                    if not knownComputers[index] then
-                        print("Registering new known computer " .. tostring(index))
-                        knownComputers[index] = true
-                        http.post(config.webhook, json.encode({
-                            content = "Computer " .. index .. " has connected!"
-                        }), {
-                            ["Content-Type"] = "application/json"
-                        })
-                    end
-                end
-            end
+            print("Received pong from " .. tostring(p1))
+            -- for index, value in pairs(computerMsgsStatus) do
+            --     if value == p1 then
+            --         print("Found computer " .. tostring(index) .. " in computerMsgsStatus")
+            --         computerMsgsStatus[index] = "received"
+            --         if not knownComputers[index] then
+            --             print("Registering new known computer " .. tostring(index))
+            --             knownComputers[index] = true
+            --             http.post(config.webhook, json.encode({
+            --                 content = "Computer " .. index .. " has connected!"
+            --             }), {
+            --                 ["Content-Type"] = "application/json"
+            --             })
+            --         end
+            --     end
+            -- end
+            computerMsgsStatus[p1] = "received"
+            knownComputers[p1] = true
         end
     end
 
