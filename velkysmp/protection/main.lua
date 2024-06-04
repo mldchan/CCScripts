@@ -101,10 +101,21 @@ while true do
         -- p1 - sender id, p2 - message, p3 - protocol
         if p2 == "ping" and p3 == "Akatsuki" then
             rednet.send(p1, "pong", "Akatsuki")
+        end
 
+        if p2 == "pong" and p3 == "Akatsuki" then
             for index, value in pairs(computerMsgsStatus) do
-                if index == p1 then
+                if value == p1 then
                     computerMsgsStatus[index] = "received"
+                    if not knownComputers[index] then
+                        print("Registering new known computer " .. tostring(index))
+                        knownComputers[index] = true
+                        http.post(config.webhook, json.encode({
+                            content = "Computer " .. index .. " has connected!"
+                        }), {
+                            ["Content-Type"] = "application/json"
+                        })
+                    end
                 end
             end
         end
