@@ -66,8 +66,8 @@ while true do
 
         -- check computers for any PC's that dissapeared
         -- send message on Discord
-        for index, value in pairs(knownComputers) do
-            if not table.contains(computers, index) then
+        for index, _ in ipairs(computers) do
+            if not knownComputers[index] then
                 print("Computer " .. index .. " has disconnected!")
                 http.post(config.webhook, json.encode({
                     content = "Computer " .. index .. " has disconnected! <@" .. config.userId .. ">"
