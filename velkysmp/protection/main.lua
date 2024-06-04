@@ -31,12 +31,15 @@ while true do
         -- p1 - timer id
         local computers = { rednet.lookup("Akatsuki") }
 
+        -- remove self from table if inside
+        for index, value in ipairs(computers) do
+            if value == os.getComputerID() then
+                table.remove(computers, index)
+            end
+        end
+
         for index, value in ipairs(computers) do
             print("Checking " .. tostring(value))
-
-            if value == os.getComputerID() then
-                goto continue
-            end
 
             rednet.send(value, "ping", "Akatsuki")
             local id, msg = rednet.receive("Akatsuki", 1)
@@ -64,7 +67,6 @@ while true do
                     knownComputers[value] = nil -- disable repeated pings for PC
                 end
             end
-            ::continue::
         end
 
         -- ping all known computers
