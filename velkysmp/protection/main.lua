@@ -42,6 +42,9 @@ while true do
                         ["Content-Type"] = "application/json"
                     })
                 end
+                -- unregister computer
+                print("Unregistering computer " .. index)
+                computerMsgsStatus[index] = nil
             end
             
             rednet.broadcast("ping", "Akatsuki")
