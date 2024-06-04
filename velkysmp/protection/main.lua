@@ -77,7 +77,8 @@ while true do
     end
 
     if event == "rednet_message" then
-        if p4 == "ping" then
+        -- p1 - sender id, p2 - message, p3 - protocol
+        if p2 == "ping" and p3 == "Akatsuki" then
             rednet.send(p1, "pong", "Akatsuki")
         end
     end
