@@ -19,7 +19,7 @@ prettyWrite(term, "Nice try. I see you.")
 local config = json.decode(readFile("config.json"))
 
 http.post(config.webhook, json.encode({
-    content = "Computer " .. os.getComputerID() .. " had it's program terminated! <@" .. config.userId .. ">"
+    content = "Computer " .. os.getComputerID() .. " had its program terminated! <@" .. config.userId .. ">"
 }), {
     ["Content-Type"] = "application/json"
 })
