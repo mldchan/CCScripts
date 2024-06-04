@@ -66,6 +66,7 @@ function drawScreen()
         })
 
         screen = "main"
+        drawScreen()
     end
 end
 
