@@ -3,7 +3,7 @@ local json = require("json")
 
 local guestbookEntries = {}
 
-if fs.exists("gustbook.json") then
+if fs.exists("guestbook.json") then
     guestbookEntries = json.decode(readFile("guestbook.json"))
 end
 
