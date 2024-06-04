@@ -72,6 +72,7 @@ end
 drawScreen()
 
 while true do
+    event, p1, p2, p3, p4, p5 = os.pullEvent()
     if event == "mouse_click" then
         if screen == "main" then
             if p2 > 1 and p2 < 10 and p3 == term_height - 1 then
