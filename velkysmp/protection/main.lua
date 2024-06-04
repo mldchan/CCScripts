@@ -34,6 +34,10 @@ while true do
         for index, value in ipairs(computers) do
             print("Checking " .. tostring(value))
 
+            if value == os.getComputerID() then
+                goto continue
+            end
+
             rednet.send(value, "ping", "Akatsuki")
             local id, msg = rednet.receive("Akatsuki", 1)
             if id ~= nil then
@@ -56,8 +60,11 @@ while true do
                     }), {
                         ["Content-Type"] = "application/json"
                     })
+
+                    knownComputers[value] = nil -- disable repeated pings for PC
                 end
             end
+            ::continue::
         end
 
         -- ping all known computers
