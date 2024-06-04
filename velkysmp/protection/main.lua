@@ -46,7 +46,9 @@ while true do
                 print("Computer " .. index .. " status: " .. value)
                 if value == "sent" then
                     http.post(config.webhook, json.encode({
-                        content = "Computer " .. index .. " did not respond when sent from " .. os.getComputerID() .. "! <@" .. config.userId .. ">"
+                        content = "Computer " ..
+                        index ..
+                        " did not respond when sent from " .. os.getComputerID() .. "! <@" .. config.userId .. ">"
                     }), {
                         ["Content-Type"] = "application/json"
                     })
@@ -55,13 +57,13 @@ while true do
                 print("Unregistering computer " .. index)
                 computerMsgsStatus[index] = nil
             end
-            
+
             rednet.broadcast("ping", "Akatsuki")
             -- set all known computers to "Sent"
             for index, value in pairs(knownComputers) do
                 computerMsgsStatus[index] = "sent"
             end
-    
+
             timer = os.startTimer(5)
         end
     end
@@ -90,6 +92,6 @@ while true do
     end
 
     writeToLog("log " ..
-    tostring(event) ..
-    " " .. tostring(p1) .. " " .. tostring(p2) .. " " .. tostring(p3) .. " " .. tostring(p4) .. " " .. tostring(p5))
+        tostring(event) ..
+        " " .. tostring(p1) .. " " .. tostring(p2) .. " " .. tostring(p3) .. " " .. tostring(p4) .. " " .. tostring(p5))
 end
