@@ -6,6 +6,12 @@ function readFile(filename)
     return content
 end
 
+function writeFile(filename, data)
+    file = fs.open(filename, "w")
+    file.write(data)
+    file.close()
+end
+
 function prettyWrite(term, text)
     -- Make it wrap too
     local width, height = term.getSize()
