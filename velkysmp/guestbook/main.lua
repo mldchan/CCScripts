@@ -4,8 +4,9 @@ os.loadAPI("keyboard")
 
 local guestbookEntries = {}
 local screen = ""
+local term_width, term_height = term.getSize()
+
 function drawScreen()
-    local term_width, term_height = term.getSize()
     term.clear()
 
     term.setBackgroundColor(colors.black)
@@ -71,10 +72,7 @@ end
 drawScreen()
 
 while true do
-    event, p1, p2, p3, p4, p5 = os.pullEvent()
-    print(event, p1, p2, p3, p4, p5)
-
-    if event == "monitor_touch" then
+    if event == "mouse_click" then
         if screen == "main" then
             if p2 > 1 and p2 < 10 and p3 == term_height - 1 then
                 screen = "sign"
