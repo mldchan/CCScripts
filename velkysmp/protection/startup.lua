@@ -1,4 +1,4 @@
-shell.set("shell.allow_disk_startup", false)
+settings.set("shell.allow_disk_startup", false)
 
 fs.delete("startup.lua")
 shell.run("wget https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/protection/startup.lua startup.lua")

@@ -1,4 +1,6 @@
 -- wget run https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/spawnmon/startup.lua
+settings.set("shell.allow_disk_startup", false)
+
 peripheral.call("right", "clear")
 
 print("Checking updates...")
