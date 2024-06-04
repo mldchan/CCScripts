@@ -41,50 +41,11 @@ while true do
                 })
             end
         end
-
-        local computers = { rednet.lookup("Akatsuki") }
-
-        -- remove self from table if inside
-        for index, value in ipairs(computers) do
-            if value == os.getComputerID() then
-                table.remove(computers, index)
-            end
-        end
-
-        -- add missing computers to knownComputers
-        for index, value in ipairs(computers) do
-            if not knownComputers[value] then
-                print("Registering new known computer " .. tostring(value))
-                knownComputers[value] = true
-                http.post(config.webhook, json.encode({
-                    content = "Computer " .. value .. " has connected! <@" .. config.userId .. ">"
-                }), {
-                    ["Content-Type"] = "application/json"
-                })
-            end
-        end
-
-        -- check computers for any PC's that dissapeared
-        -- send message on Discord
-        for index, _ in ipairs(computers) do
-            if not knownComputers[index] then
-                print("Computer " .. index .. " has disconnected!")
-                http.post(config.webhook, json.encode({
-                    content = "Computer " .. index .. " has disconnected! <@" .. config.userId .. ">"
-                }), {
-                    ["Content-Type"] = "application/json"
-                })
-
-                knownComputers[index] = nil
-            end
-        end
-
-        for index, value in ipairs(computers) do
-            print("Checking " .. tostring(value))
-
-            rednet.send(value, "ping", "Akatsuki")
-            print("Sent ping to " .. tostring(value))
-            computerMsgsStatus[value] = "sent"
+        
+        rednet.broadcast("ping", "Akatsuki")
+        -- set all known computers to "Sent"
+        for index, value in pairs(knownComputers) do
+            computerMsgsStatus[index] = "sent"
         end
     end
 
@@ -98,6 +59,16 @@ while true do
         if p2 == "pong" and p3 == "Akatsuki" then
             print("Received pong from " .. tostring(p1))
             computerMsgsStatus[p1] = "received"
+            -- add to list of known computers if not already there
+            if not knownComputers[p1] then
+                print("Registering new known computer " .. tostring(p1))
+                knownComputers[p1] = true
+                http.post(config.webhook, json.encode({
+                    content = "Computer " .. p1 .. " has connected!"
+                }), {
+                    ["Content-Type"] = "application/json"
+                })
+            end
         end
     end
 
