@@ -36,12 +36,13 @@ function drawScreen()
 
         local time = os.time()
         local dayUnfinished = os.day()
-        local year = math.floor(dayUnfinished / 365) + 2001
+        local year = math.floor(dayUnfinished / 365) + 1
         --- make year always display in 4 digits e.g. 0002
-        year = string.format("%04d", year)
         local month = math.floor((dayUnfinished - (year - 1) * 365) / 30) + 1
-        month = string.format("%02d", month)
         local day = dayUnfinished - (year - 1) * 365 - (month - 1) * 30 + 1
+        year = year + 2000
+        year = string.format("%04d", year)
+        month = string.format("%02d", month)
         day = string.format("%02d", day)
         local hours = math.floor(time)
         local minutes = math.floor((time - hours) * 100 * 0.6)
