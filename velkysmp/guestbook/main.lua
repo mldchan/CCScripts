@@ -79,7 +79,7 @@ end
 
 drawScreen()
 
-local timer = os.startTimer(5)
+local timer = os.startTimer(1)
 
 while true do
     event, p1, p2, p3, p4, p5 = os.pullEvent()
@@ -96,7 +96,7 @@ while true do
         if timer == p1 then
             drawScreen()
 
-            timer = os.startTimer(5)
+            timer = os.startTimer(1)
         end
     end
 end
