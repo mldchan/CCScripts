@@ -33,6 +33,17 @@ function drawScreen()
 
         term.setCursorPos(2, term_height - 1)
         term.write("[ Sign ]")
+
+        local time = os.time()
+        local dayUnfinished = os.day()
+        local year = math.floor(dayUnfinished / 365) + 1
+        local month = math.floor((dayUnfinished - (year - 1) * 365) / 30) + 1
+        local day = dayUnfinished - (year - 1) * 365 - (month - 1) * 30 + 1
+        local hours = math.floor(time)
+        local minutes = math.floor((time - hours) * 100 * 0.6)
+
+        term.setCursorPos(1,1)
+        term.write(tostring(year) .. "/" .. tostring(month) .. "/" .. tostring(day) .. " " .. tostring(hours) .. ":" .. tostring(minutes))
     elseif screen == "sign" then
         term.setCursorPos(2, 2)
         prettyWrite(term, "Please enter the title of your entry.")
