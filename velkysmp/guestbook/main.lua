@@ -3,7 +3,7 @@ local json = require("json")
 os.loadAPI("keyboard")
 
 local guestbookEntries = {}
-local screen = ""
+local screen = "main"
 local term_width, term_height = term.getSize()
 
 function drawScreen()
