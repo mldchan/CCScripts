@@ -63,6 +63,8 @@ end
 
 drawScreen()
 
+local timer = os.startTimer(5)
+
 while true do
     event, p1, p2, p3, p4, p5 = os.pullEvent()
     if event == "mouse_click" then
@@ -71,6 +73,14 @@ while true do
                 screen = "sign"
                 drawScreen()
             end
+        end
+    end
+
+    if event == "timer" then
+        if timer == p1 then
+            drawScreen()
+
+            timer = os.startTimer(5)
         end
     end
 end
