@@ -37,7 +37,7 @@ while true do
                 print("Computer " .. index .. " status: " .. value)
                 if value == "sent" then
                     http.post(config.webhook, json.encode({
-                        content = "Computer " .. index .. " did not respond! <@" .. config.userId .. ">"
+                        content = "Computer " .. index .. " did not respond when sent from " .. os.getComputerID() .. "! <@" .. config.userId .. ">"
                     }), {
                         ["Content-Type"] = "application/json"
                     })
