@@ -1,6 +1,5 @@
 require("utils")
 local json = require("json")
-os.loadAPI("keyboard")
 
 local guestbookEntries = {}
 
@@ -38,13 +37,17 @@ function drawScreen()
         term.setCursorPos(2, 2)
         prettyWrite(term, "Please enter the title of your entry.")
 
+        os.loadAPI("keyboard")
         local title = keyboard.inputKeyboard()
+        os.unloadAPI("keyboard")
         term.clear()
 
         term.setCursorPos(2, 2)
         prettyWrite(term, "Please enter the content of your entry.")
 
+        os.loadAPI("keyboard")
         local content = keyboard.inputKeyboard()
+        os.unloadAPI("keyboard")
         term.clear()
 
         table.insert(guestbookEntries, {
