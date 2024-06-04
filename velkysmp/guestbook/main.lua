@@ -46,6 +46,8 @@ function drawScreen()
         day = string.format("%02d", day)
         local hours = math.floor(time)
         local minutes = math.floor((time - hours) * 100 * 0.6)
+        hours = string.format("%02d", hours)
+        minutes = string.format("%02d", minutes)
 
         term.setCursorPos(1,1)
         term.write(tostring(year) .. "/" .. tostring(month) .. "/" .. tostring(day) .. " " .. tostring(hours) .. ":" .. tostring(minutes))
