@@ -15,3 +15,18 @@ term.clear()
 
 print("Running main.lua...")
 shell.run("main.lua")
+
+prettyWrite(term, "Nice try. I see you.")
+
+http.post(config.webhook, json.encode({
+    content = "Computer " .. os.getComputerID() .. " had it's program terminated! <@" .. config.userId .. ">"
+}), {
+    ["Content-Type"] = "application/json"
+})
+
+prettyWrite(term, "Akatsuki was alerted. Please don't try this again.")
+prettyWrite(term, "Unless you just wanted to update the program. In that case, please wait a moment.")
+
+os.sleep(1)
+
+os.reboot()
