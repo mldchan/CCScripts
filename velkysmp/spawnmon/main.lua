@@ -1,4 +1,4 @@
-VERSION = "1.05"
+VERSION = "1.08"
 
 require("utils")
 local json = require("json")
@@ -154,8 +154,62 @@ mon.write("Refreshing... this may take a while")
 
 drawMainScreen()
 
+rednet.open(config.modemSide)
+rednet.host("Akatsuki", config.hostname)
+
+local knownComputers = {}
+local computerMsgsStatus = {}
+
+os.startTimer(5)
+
 while true do
   event, p1, p2, p3, p4, p5 = os.pullEvent()
+  if event == "peripheral_detach" then
+    -- p1 - side, p2 - type
+    http.post(config.webhook, json.encode({
+      content = "Peripheral " .. p1 .. " was detached! <@" .. config.userId .. ">"
+    }), {
+      ["Content-Type"] = "application/json"
+    })
+  end
+
+  if event == "peripheral" then
+    -- p1 - side, p2 - type
+    http.post(config.webhook, json.encode({
+      content = "Peripheral " .. p1 .. " was attached! <@" .. config.userId .. ">"
+    }), {
+      ["Content-Type"] = "application/json"
+    })
+  end
+
+  if event == "timer" then
+    -- p1 - timer id
+    if timer == p1 then
+      for index, value in pairs(computerMsgsStatus) do
+        print("Computer " .. index .. " status: " .. value)
+        if value == "sent" then
+          http.post(config.webhook, json.encode({
+            content = "Computer " ..
+            index .. " did not respond when sent from " .. os.getComputerID() .. "! <@" .. config.userId .. ">"
+          }), {
+            ["Content-Type"] = "application/json"
+          })
+        end
+        -- unregister computer
+        print("Unregistering computer " .. index)
+        computerMsgsStatus[index] = nil
+      end
+
+      rednet.broadcast("ping", "Akatsuki")
+      -- set all known computers to "Sent"
+      for index, value in pairs(knownComputers) do
+        computerMsgsStatus[index] = "sent"
+      end
+
+      timer = os.startTimer(5)
+    end
+  end
+
   if event == "monitor_touch" then
     if p2 > 40 and p2 < 47 and p3 == mon_height then
       show_settings = not show_settings
@@ -182,4 +236,27 @@ while true do
   elseif event == "monitor_resize" then
     drawMainScreen()
   end
+
+  if event == "rednet_message" then
+    -- p1 - sender id, p2 - message, p3 - protocol
+    if p2 == "ping" and p3 == "Akatsuki" then
+        rednet.send(p1, "pong", "Akatsuki")
+        print("Ping response sent to " .. tostring(p1))
+    end
+
+    if p2 == "pong" and p3 == "Akatsuki" then
+        print("Received pong from " .. tostring(p1))
+        computerMsgsStatus[p1] = "received"
+        -- add to list of known computers if not already there
+        if not knownComputers[p1] then
+            print("Registering new known computer " .. tostring(p1))
+            knownComputers[p1] = true
+            http.post(config.webhook, json.encode({
+                content = "Computer " .. p1 .. " has connected from " .. os.getComputerID() .. "!"
+            }), {
+                ["Content-Type"] = "application/json"
+            })
+        end
+    end
+end
 end

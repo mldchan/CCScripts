@@ -30,6 +30,15 @@ while true do
         })
     end
 
+    if event == "peripheral" then
+        -- p1 - side, p2 - type
+        http.post(config.webhook, json.encode({
+            content = "Peripheral " .. p1 .. " was attached! <@" .. config.userId .. ">"
+        }), {
+            ["Content-Type"] = "application/json"
+        })
+    end
+
     if event == "timer" then
         -- p1 - timer id
         if timer == p1 then
