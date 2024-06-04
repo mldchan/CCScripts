@@ -16,8 +16,9 @@ local knownComputers = {}
 local computerMsgsStatus = {}
 -- there are 3 states in computerMsgsStatus: nil, "sent", "received"
 
+os.startTimer(5)
+
 while true do
-    os.startTimer(5)
     event, p1, p2, p3, p4, p5 = os.pullEvent()
 
     if event == "peripheral_detach" then
@@ -47,6 +48,8 @@ while true do
         for index, value in pairs(knownComputers) do
             computerMsgsStatus[index] = "sent"
         end
+
+        os.startTimer(5)
     end
 
     if event == "rednet_message" then
