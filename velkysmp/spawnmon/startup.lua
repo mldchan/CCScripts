@@ -18,6 +18,7 @@ shell.run("main.lua")
 
 require("utils")
 local json = require("json")
+local config = json.decode(readFile("config.json"))
 
 prettyWrite(term, "Nice try. I see you.")
 
