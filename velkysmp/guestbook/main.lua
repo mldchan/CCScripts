@@ -12,7 +12,7 @@ end
 local screen = "main"
 local termScreen = "idle"
 
-local mon = peripheral.write(config.side)
+local mon = peripheral.wrap(config.side)
 local mon_width, mon_height = mon.getSize()
 
 local managementIndex = 1
