@@ -17,7 +17,7 @@ function drawScreen()
     term.setTextColor(colors.white)
 
     if screen == "main" then
-        local startIndex = math.max(1, #guestbookEntries - (term_height - 3) // 3 + 1)
+        local startIndex = math.max(1, #guestbookEntries - (term_height - 3) / 3 + 1)
         for index = startIndex, #guestbookEntries do
             local value = guestbookEntries[index]
             local y = (index - startIndex + 1) * 3 + 2
