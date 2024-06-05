@@ -36,7 +36,7 @@ fs.delete("utils.lua")
 shell.run("wget https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/utils.lua utils.lua")
 fs.delete("keyboard")
 fs.delete("keyboard.lua")
-shell.run("wget https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/guestbook/keyboard.lua keyboard")
+shell.run("pastebin get 16JAjfUf keyboard")
 
 peripheral.call("back", "setTextScale", 1)
 shell.run("main.lua")
