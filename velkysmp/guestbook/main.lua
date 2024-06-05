@@ -17,13 +17,10 @@ function drawScreen()
     term.setTextColor(colors.white)
 
     if screen == "main" then
-        for index, value in ipairs(guestbookEntries) do
-            -- render until out of screen
-            local y = index * 3 + 2
-
-            if y > term_height - 3 then
-                break
-            end
+        local startIndex = math.max(1, #guestbookEntries - (term_height - 3) // 3 + 1)
+        for index = startIndex, #guestbookEntries do
+            local value = guestbookEntries[index]
+            local y = (index - startIndex + 1) * 3 + 2
 
             term.setCursorPos(2, y)
             term.write(value.title)
