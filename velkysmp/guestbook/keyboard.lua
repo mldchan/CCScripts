@@ -40,7 +40,7 @@ function printC(term, Text, Line, NextLine, Color, BkgColor) -- print centered
   x = x/2 - #Text/2
   term.setCursorPos(x, Line)
   if Color then setCol(term, Color, BkgColor) end
-  term.term.write(Text) 
+  term.write(Text) 
   if NextLine then
     term.setCursorPos(1, NextLine) 
   end
@@ -51,7 +51,7 @@ end
 function printA(term, Text, xx, yy, NextLine, Color, BkgColor) -- print anywhere
   term.setCursorPos(xx,yy)
   if Color then setCol(term, Color, BkgColor) end
-  term.term.write(Text)
+  term.write(Text)
   if NextLine then  
     term.setCursorPos(1, NextLine) 
   end
@@ -68,14 +68,14 @@ function drawBox(term, StartX, lengthX, StartY, lengthY, Text, Color, BkgColor) 
   EndX = StartX + lengthX  
   EndY = StartY + lengthY
   term.setCursorPos(StartX, StartY)
-  term.term.write(string.rep(Text, lengthX))
+  term.write(string.rep(Text, lengthX))
   term.setCursorPos(StartX, EndY)
-  term.term.write(string.rep(Text, lengthX)) 
+  term.write(string.rep(Text, lengthX)) 
   for i = StartY, EndY do
     term.setCursorPos(StartX, i)
-    term.term.write(Text)
+    term.write(Text)
     term.setCursorPos(EndX, i)    
-    term.term.write(Text)
+    term.write(Text)
   end
   resetCol(termColor, BkgColor)
   return true  
