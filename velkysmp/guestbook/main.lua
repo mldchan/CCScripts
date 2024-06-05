@@ -28,7 +28,7 @@ function drawScreen()
         local startIndex = math.max(1, #guestbookEntries - entries_to_display + 1)
         for index = startIndex, #guestbookEntries do
             local value = guestbookEntries[index]
-            local y = (index - startIndex) * 3 + 2
+            local y = (index - startIndex) * 3 + 3
 
             mon.setCursorPos(2, y)
             mon.write(value.title)
@@ -86,45 +86,6 @@ function drawScreen()
         writeFile("guestbook.json", json.encode(guestbookEntries))
         screen = "main"
         drawScreen()
-    -- elseif screen == "enter_password" then
-    --     mon.setCursorPos(2, 2)
-    --     prettyWrite(mon, "Please enter the password to access the management.")
-
-    --     os.loadAPI("keyboard")
-    --     local password = keyboard.inputKeyboard()
-    --     os.unloadAPI("keyboard")
-
-    --     if password == config.password then
-    --         screen = "management"
-    --         drawScreen()
-    --     else
-    --         screen = "main"
-    --         drawScreen()
-    --     end
-    -- elseif screen == "management" then
-        
-    --     mon.setCursorPos(2, 2)
-    --     prettyWrite(mon, "Guestbook Management")
-
-    --     local entryTitle = guestbookEntries[managementIndex].title
-    --     local entryContent = guestbookEntries[managementIndex].content
-    --     mon.setCursorPos(2, 4)
-    --     prettyWrite(mon, "Title: " .. entryTitle)
-    --     mon.setCursorPos(2, 5)
-    --     prettyWrite(mon, "Content: " .. entryContent)
-
-    --     mon.setCursorPos(2, 7)
-    --     prettyWrite(mon, "[ Delete ]")
-
-    --     if managementIndex ~= 1 then
-    --         mon.setCursorPos(2, 9)
-    --         prettyWrite(mon, "[ Previous ]")
-    --     end
-
-    --     if managementIndex ~= #guestbookEntries - 1 then
-    --         mon.setCursorPos(15, 9)
-    --         prettyWrite(mon, "[ Next ]")
-    --     end
     end
 end
 
@@ -195,24 +156,6 @@ while true do
                 screen = "enter_password"
                 drawScreen()
             end
-        -- elseif screen == "management" then
-
-        --     if p2 > 1 and p2 < 13 and p3 == 7 then
-        --         table.remove(guestbookEntries, managementIndex)
-        --         writeFile("guestbook.json", json.encode(guestbookEntries))
-        --         drawScreen()
-        --     end
-
-        --     if p2 > 1 and p2 < 14 and p3 == 9 then
-        --         managementIndex = managementIndex - 1
-        --         drawScreen()
-        --     end
-
-        --     if p2 > 14 and p2 < 22 and p3 == 9 then
-        --         managementIndex = managementIndex + 1
-        --         drawScreen()
-        --     end
-
         end
     end
 
