@@ -135,6 +135,9 @@ function drawTerm()
             term.setCursorPos(15, 9)
             prettyWrite(term, "[ Next ]")
         end
+
+        term.setCursorPos(2, 9)
+        term.write("[ Log out ]")
     end
 end
 
@@ -179,6 +182,11 @@ while true do
 
             if p2 > 14 and p2 < 22 and p3 == 9 and managementIndex ~= #guestbookEntries - 1 then
                 managementIndex = managementIndex + 1
+                drawTerm()
+            end
+
+            if p2 > 1 and p2 < 13 and p3 == 9 then
+                termScreen = "idle"
                 drawTerm()
             end
         end
