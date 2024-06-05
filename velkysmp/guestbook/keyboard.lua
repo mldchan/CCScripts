@@ -25,7 +25,7 @@ function setCol(term, textColour, backgroundColour)
 end
  
 function resetCol(term)
-	if term.isColour then
+	if term.isColour() then
 		term.setTextColour(colours.white)
 		term.setBackgroundColour(colours.black)
 		return true
