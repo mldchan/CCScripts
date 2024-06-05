@@ -1,15 +1,15 @@
 -- ComputerCraftScripts
 -- Copyright (C) 2024  Akatsuki
 
--- This program is free software: you can redistribute it and/or modify it under the terms of the 
--- GNU General Public License as published by the Free Software Foundation, either version 3 of 
+-- This program is free software: you can redistribute it and/or modify it under the terms of the
+-- GNU General Public License as published by the Free Software Foundation, either version 3 of
 -- the License, or (at your option) any later version.
 
--- This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without 
--- even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+-- This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+-- even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 -- GNU General Public License for more details.
 
--- You should have received a copy of the GNU General Public License along with this program. 
+-- You should have received a copy of the GNU General Public License along with this program.
 -- If not, see <https://www.gnu.org/licenses/>.
 
 require("utils")
@@ -73,8 +73,8 @@ function drawScreen()
 
         mon.setCursorPos(1, 1)
         mon.write("Akatsuki's guestbook - " .. tostring(year) ..
-        "/" ..
-        tostring(month) .. "/" .. tostring(day) .. " " .. tostring(hours) .. ":" .. tostring(minutes) .. " IGT")
+            "/" ..
+            tostring(month) .. "/" .. tostring(day) .. " " .. tostring(hours) .. ":" .. tostring(minutes) .. " IGT")
     elseif screen == "sign" then
         mon.setCursorPos(2, 2)
         prettyWrite(mon, "Please enter the title of your entry.")
@@ -100,7 +100,6 @@ function drawScreen()
         writeFile("guestbook.json", json.encode(guestbookEntries))
         screen = "main"
         drawScreen()
-        timer = os.startTimer(1)
     end
 end
 
@@ -115,7 +114,6 @@ function drawTerm()
         prettyWrite(term, "To manage this guestbook, please enter the password.")
         local password = read("*")
 
-        timer = os.startTimer(1)
         if password == config.password then
             termScreen = "management"
             drawTerm()
@@ -160,9 +158,10 @@ end
 drawScreen()
 drawTerm()
 
-local timer = os.startTimer(1)
+local tempTime = os.time()
 
 while true do
+    os.queueEvent("tick")
     event, p1, p2, p3, p4, p5 = os.pullEvent()
     if event == "monitor_touch" then
         if screen == "main" then
@@ -208,11 +207,8 @@ while true do
         end
     end
 
-    if event == "timer" then
-        if timer == p1 then
-            drawScreen()
-
-            timer = os.startTimer(1)
-        end
+    if tempTime < os.time() then
+        tempTime = os.time() + 0.02
+        drawScreen()
     end
 end
