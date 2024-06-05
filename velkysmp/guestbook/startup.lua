@@ -34,6 +34,8 @@ fs.delete("main.lua")
 shell.run("wget https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/guestbook/main.lua main.lua")
 fs.delete("utils.lua")
 shell.run("wget https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/utils.lua utils.lua")
+fs.delete("keyboard.lua")
+shell.run("wget https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/guestbook/keyboard.lua keyboard.lua")
 
 peripheral.call("back", "setTextScale", 1)
 shell.run("main.lua")
