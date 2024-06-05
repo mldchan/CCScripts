@@ -1,6 +1,6 @@
 -- On-Screen Keyboard (Terminal)
 -- Created By DannySMc
--- Modifications by Akatsuki2555 to work with a specific terminal
+-- Modifications by Akatsuki2555 to work with a specific terminal and fix bugs
 -- Platform: Lua Virtual Machine
 
 -- Common Draw Functions
