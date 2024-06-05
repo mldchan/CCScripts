@@ -40,7 +40,7 @@ function printC(term, Text, Line, NextLine, Color, BkgColor) -- print centered
   x = x/2 - #Text/2
   term.setCursorPos(x, Line)
   if Color then setCol(term, Color, BkgColor) end
-  term.write(Text) 
+  term.term.write(Text) 
   if NextLine then
     term.setCursorPos(1, NextLine) 
   end
@@ -51,7 +51,7 @@ end
 function printA(term, Text, xx, yy, NextLine, Color, BkgColor) -- print anywhere
   term.setCursorPos(xx,yy)
   if Color then setCol(term, Color, BkgColor) end
-  term.write(Text)
+  term.term.write(Text)
   if NextLine then  
     term.setCursorPos(1, NextLine) 
   end
@@ -68,14 +68,14 @@ function drawBox(term, StartX, lengthX, StartY, lengthY, Text, Color, BkgColor) 
   EndX = StartX + lengthX  
   EndY = StartY + lengthY
   term.setCursorPos(StartX, StartY)
-  term.write(string.rep(Text, lengthX))
+  term.term.write(string.rep(Text, lengthX))
   term.setCursorPos(StartX, EndY)
-  term.write(string.rep(Text, lengthX)) 
+  term.term.write(string.rep(Text, lengthX)) 
   for i = StartY, EndY do
     term.setCursorPos(StartX, i)
-    term.write(Text)
+    term.term.write(Text)
     term.setCursorPos(EndX, i)    
-    term.write(Text)
+    term.term.write(Text)
   end
   resetCol(termColor, BkgColor)
   return true  
@@ -110,38 +110,38 @@ function drawKeyboard(term)
 	i = 9
 	for _, v in ipairs(tRow1) do
 		term.setCursorPos(i,14)
-		write(v)
+		term.write(v)
 		i = i + 2
 	end
 	i = 9
 	for _,v in ipairs(tRow2) do
 		term.setCursorPos(i,15)
-		write(v)
+		term.write(v)
 		i = i + 2
 	end
 	i = 9
 	for _,v in ipairs(tRow3) do
 		term.setCursorPos(i,16)
-		write(v)
+		term.write(v)
 		i = i + 2
 	end
 	i = 9
 	for _,v in ipairs(tRow4) do
 		term.setCursorPos(i,17)
-		write(v)
+		term.write(v)
 		i = i + 2
 	end
 	i = 9
 	for _,v in ipairs(tRow5) do
 		term.setCursorPos(i,18)
-		write(v)
+		term.write(v)
 		i = i + 2
 	end
 	resetCol(term)
 	printC(term, "   Keyboard (Ver: "..tostring(sKeyVer)..") - DannySMc", 13, 1, "red", kbbc)
 	setCol(term, "black", "white")
 	term.setCursorPos(9, 12)
-	write(": ")
+	term.write(": ")
 	resetCol(term)
 	setCol(term, "black", "white")
 	term.setCursorPos(11, 12)
@@ -324,7 +324,7 @@ function addCharacter(term, charInput)
 		setCol(term, "black", "white")
 		table.insert(keyOutput, charInput)
 		term.setCursorPos(i, 12)
-		write(charInput)
+		term.write(charInput)
 		i = i + 1
 		resetCol(term)
 	else
@@ -332,14 +332,14 @@ function addCharacter(term, charInput)
 			setCol(term, "black", "white")
 			table.insert(keyOutput, string.upper(charInput))
 			term.setCursorPos(i, 12)
-			write(string.upper(charInput))
+			term.write(string.upper(charInput))
 			i = i + 1
 			resetCol(term)
 		elseif capsToggle == false then
 			setCol(term, "black", "white")
 			table.insert(keyOutput, string.lower(charInput))
 			term.setCursorPos(i, 12)
-			write(string.lower(charInput))
+			term.write(string.lower(charInput))
 			i = i + 1
 			resetCol(term)
 		end
@@ -351,7 +351,7 @@ function backSpace(term)
 	table.remove(keyOutput)
 	i = i - 1
 	term.setCursorPos(i,12)
-	write(" ")
+	term.write(" ")
 	term.setCursorPos(i,12)
 	resetCol(term)
 end
@@ -360,12 +360,12 @@ function caps_lock(term)
 	if capsToggle == true then
 		term.setCursorPos(36,16)
 		setCol(term, "black", "white")
-		write("CAPS LOCK")
+		term.write("CAPS LOCK")
 		capsToggle = false
 	elseif capsToggle == false then
 		term.setCursorPos(36,16)
 		setCol(term, "red", "white")
-		write("CAPS LOCK")
+		term.write("CAPS LOCK")
 		capsToggle = true
 	end
 end
