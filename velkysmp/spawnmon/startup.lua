@@ -1,7 +1,17 @@
 -- wget run https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/spawnmon/startup.lua
 settings.set("shell.allow_disk_startup", false)
 
-peripheral.call("right", "clear")
+require("utils")
+local json = require("json")
+local config = json.decode(readFile("config.json"))
+
+-- startup alret
+
+http.post(config.webhook, json.encode({
+    content = "Computer " .. os.getComputerID() .. " has been started!"
+}), {
+    ["Content-Type"] = "application/json"
+})
 
 print("Checking updates...")
 fs.delete("startup.lua")
@@ -17,10 +27,6 @@ term.clear()
 
 print("Running main.lua...")
 shell.run("main.lua")
-
-require("utils")
-local json = require("json")
-local config = json.decode(readFile("config.json"))
 
 prettyWrite(term, "Nice try. I see you.")
 print()
