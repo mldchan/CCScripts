@@ -100,6 +100,7 @@ function drawScreen()
         writeFile("guestbook.json", json.encode(guestbookEntries))
         screen = "main"
         drawScreen()
+        timer = os.startTimer(1)
     end
 end
 
@@ -114,6 +115,7 @@ function drawTerm()
         prettyWrite(term, "To manage this guestbook, please enter the password.")
         local password = read("*")
 
+        timer = os.startTimer(1)
         if password == config.password then
             termScreen = "management"
             drawTerm()
