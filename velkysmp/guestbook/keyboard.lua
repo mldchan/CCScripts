@@ -44,7 +44,7 @@ function printC(term, Text, Line, NextLine, Color, BkgColor) -- print centered
   if NextLine then
     term.setCursorPos(1, NextLine) 
   end
-  if Color then resetCol(termColor, BkgColor) end
+  if Color then setCol(term, termColor, BkgColor) end
   return true  
 end
 
@@ -55,7 +55,7 @@ function printA(term, Text, xx, yy, NextLine, Color, BkgColor) -- print anywhere
   if NextLine then  
     term.setCursorPos(1, NextLine) 
   end
-  if Color then resetCol(termColor, BkgColor) end
+  if Color then setCol(term, termColor, BkgColor) end
   return true  
 end
 
@@ -77,7 +77,7 @@ function drawBox(term, StartX, lengthX, StartY, lengthY, Text, Color, BkgColor) 
     term.setCursorPos(EndX, i)    
     term.write(Text)
   end
-  resetCol(termColor, BkgColor)
+  setCol(term, termColor, BkgColor)
   return true  
 end
 
