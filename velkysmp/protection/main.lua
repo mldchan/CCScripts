@@ -1,12 +1,6 @@
 require("utils")
 local json = require("json")
 
-function writeToLog(msg)
-    local log = readFile("log.txt")
-    log = log .. "\n" .. msg
-    writeFile("log.txt", log)
-end
-
 local config = json.decode(readFile("config.json"))
 
 rednet.open(config.modemSide)
@@ -90,8 +84,4 @@ while true do
             end
         end
     end
-
-    writeToLog("log " ..
-        tostring(event) ..
-        " " .. tostring(p1) .. " " .. tostring(p2) .. " " .. tostring(p3) .. " " .. tostring(p4) .. " " .. tostring(p5))
 end
