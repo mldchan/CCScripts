@@ -1,6 +1,8 @@
 require("utils")
 local json = require("json")
 
+local config = json.decode(readFile("config.json"))
+
 local guestbookEntries = {}
 
 if fs.exists("guestbook.json") then
@@ -8,34 +10,37 @@ if fs.exists("guestbook.json") then
 end
 
 local screen = "main"
-local term_width, term_height = term.getSize()
+local termScreen = "idle"
+
+local mon = peripheral.write(config.side)
+local mon_width, mon_height = mon.getSize()
 
 local managementIndex = 1
 
 function drawScreen()
-    term.clear()
+    mon.clear()
 
-    term.setBackgroundColor(colors.black)
-    term.setTextColor(colors.white)
+    mon.setBackgroundColor(colors.black)
+    mon.setTextColor(colors.white)
 
     if screen == "main" then
-        local entries_to_display = math.floor((term_height - 3) / 3)
+        local entries_to_display = math.floor((mon_height - 3) / 3)
         local startIndex = math.max(1, #guestbookEntries - entries_to_display + 1)
         for index = startIndex, #guestbookEntries do
             local value = guestbookEntries[index]
             local y = (index - startIndex) * 3 + 2
 
-            term.setCursorPos(2, y)
-            term.write(value.title)
-            term.setCursorPos(3, y + 1)
-            term.write(value.content)
+            mon.setCursorPos(2, y)
+            mon.write(value.title)
+            mon.setCursorPos(3, y + 1)
+            mon.write(value.content)
         end
 
-        term.setCursorPos(2, term_height - 1)
-        term.write("[ Sign ]")
+        mon.setCursorPos(2, mon_height - 1)
+        mon.write("[ Sign ]")
 
-        term.setCursorPos(11, term_height - 1)
-        term.write("[ Management ]")
+        -- mon.setCursorPos(11, mon_height - 1)
+        -- mon.write("[ Management ]")
 
         local time = os.time()
         local dayUnfinished = os.day()
@@ -52,26 +57,26 @@ function drawScreen()
         hours = string.format("%02d", hours)
         minutes = string.format("%02d", minutes)
 
-        term.setCursorPos(1, 1)
-        term.write(tostring(year) ..
+        mon.setCursorPos(1, 1)
+        mon.write(tostring(year) ..
         "/" ..
         tostring(month) .. "/" .. tostring(day) .. " " .. tostring(hours) .. ":" .. tostring(minutes) .. " -- MC time!")
     elseif screen == "sign" then
-        term.setCursorPos(2, 2)
-        prettyWrite(term, "Please enter the title of your entry.")
+        mon.setCursorPos(2, 2)
+        prettyWrite(mon, "Please enter the title of your entry.")
 
         os.loadAPI("keyboard")
         local title = keyboard.inputKeyboard()
         os.unloadAPI("keyboard")
-        term.clear()
+        mon.clear()
 
-        term.setCursorPos(2, 2)
-        prettyWrite(term, "Please enter the content of your entry.")
+        mon.setCursorPos(2, 2)
+        prettyWrite(mon, "Please enter the content of your entry.")
 
         os.loadAPI("keyboard")
         local content = keyboard.inputKeyboard()
         os.unloadAPI("keyboard")
-        term.clear()
+        mon.clear()
 
         table.insert(guestbookEntries, {
             title = title,
@@ -81,23 +86,70 @@ function drawScreen()
         writeFile("guestbook.json", json.encode(guestbookEntries))
         screen = "main"
         drawScreen()
-    elseif screen == "enter_password" then
-        term.setCursorPos(2, 2)
-        prettyWrite(term, "Please enter the password to access the management.")
+    -- elseif screen == "enter_password" then
+    --     mon.setCursorPos(2, 2)
+    --     prettyWrite(mon, "Please enter the password to access the management.")
 
-        os.loadAPI("keyboard")
-        local password = keyboard.inputKeyboard()
-        os.unloadAPI("keyboard")
+    --     os.loadAPI("keyboard")
+    --     local password = keyboard.inputKeyboard()
+    --     os.unloadAPI("keyboard")
+
+    --     if password == config.password then
+    --         screen = "management"
+    --         drawScreen()
+    --     else
+    --         screen = "main"
+    --         drawScreen()
+    --     end
+    -- elseif screen == "management" then
+        
+    --     mon.setCursorPos(2, 2)
+    --     prettyWrite(mon, "Guestbook Management")
+
+    --     local entryTitle = guestbookEntries[managementIndex].title
+    --     local entryContent = guestbookEntries[managementIndex].content
+    --     mon.setCursorPos(2, 4)
+    --     prettyWrite(mon, "Title: " .. entryTitle)
+    --     mon.setCursorPos(2, 5)
+    --     prettyWrite(mon, "Content: " .. entryContent)
+
+    --     mon.setCursorPos(2, 7)
+    --     prettyWrite(mon, "[ Delete ]")
+
+    --     if managementIndex ~= 1 then
+    --         mon.setCursorPos(2, 9)
+    --         prettyWrite(mon, "[ Previous ]")
+    --     end
+
+    --     if managementIndex ~= #guestbookEntries - 1 then
+    --         mon.setCursorPos(15, 9)
+    --         prettyWrite(mon, "[ Next ]")
+    --     end
+    end
+end
+
+function drawTerm()
+    if termScreen == "idle" then
+        term.setCursorPos(2, 2)
+        term.write("[ Manage ]")
+    elseif termScreen == "password" then
+        term.setCursorPos(2, 2)
+        prettyWrite(term, "To manage this guestbook, please enter the password.")
+        local password = read("*")
 
         if password == config.password then
-            screen = "management"
-            drawScreen()
+            termScreen = "management"
+            drawTerm()
         else
-            screen = "main"
-            drawScreen()
+            termScreen = "idle"
+
+            term.setCursorPos(2, 4)
+            term.setTextColor(colors.red)
+            prettyWrite(term, "Incorrect password.")
+            term.setTextColor(colors.white)
+            drawTerm()
         end
-    elseif screen == "management" then
-        
+    elseif termScreen == "management" then
         term.setCursorPos(2, 2)
         prettyWrite(term, "Guestbook Management")
 
@@ -124,40 +176,66 @@ function drawScreen()
 end
 
 drawScreen()
+drawTerm()
 
 local timer = os.startTimer(1)
 
 while true do
     event, p1, p2, p3, p4, p5 = os.pullEvent()
-    if event == "mouse_click" then
+    if event == "monitor_touch" then
         if screen == "main" then
-            if p2 > 1 and p2 < 10 and p3 == term_height - 1 then
+            if p2 > 1 and p2 < 10 and p3 == mon_height - 1 then
                 screen = "sign"
                 drawScreen()
             end
 
-            if p2 > 11 and p2 < 23 and p3 == term_height - 1 then
+            if p2 > 11 and p2 < 23 and p3 == mon_height - 1 then
                 screen = "enter_password"
                 drawScreen()
             end
-        elseif screen == "management" then
+        -- elseif screen == "management" then
 
+        --     if p2 > 1 and p2 < 13 and p3 == 7 then
+        --         table.remove(guestbookEntries, managementIndex)
+        --         writeFile("guestbook.json", json.encode(guestbookEntries))
+        --         drawScreen()
+        --     end
+
+        --     if p2 > 1 and p2 < 14 and p3 == 9 then
+        --         managementIndex = managementIndex - 1
+        --         drawScreen()
+        --     end
+
+        --     if p2 > 14 and p2 < 22 and p3 == 9 then
+        --         managementIndex = managementIndex + 1
+        --         drawScreen()
+        --     end
+
+        end
+    end
+
+    if event == "mouse_click" then
+        if termScreen == "idle" then
+            if p2 > 1 and p2 < 13 and p3 == 2 then
+                termScreen = "password"
+                drawTerm()
+            end
+        elseif termScreen == "management" then
             if p2 > 1 and p2 < 13 and p3 == 7 then
                 table.remove(guestbookEntries, managementIndex)
                 writeFile("guestbook.json", json.encode(guestbookEntries))
-                drawScreen()
+                drawTerm()
             end
 
             if p2 > 1 and p2 < 14 and p3 == 9 then
                 managementIndex = managementIndex - 1
-                drawScreen()
+                drawTerm()
             end
 
             if p2 > 14 and p2 < 22 and p3 == 9 then
                 managementIndex = managementIndex + 1
-                drawScreen()
+                drawTerm()
             end
-
         end
     end
 
