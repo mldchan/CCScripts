@@ -17,10 +17,11 @@ function drawScreen()
     term.setTextColor(colors.white)
 
     if screen == "main" then
-        local startIndex = math.max(1, #guestbookEntries - (term_height - 3) / 3 + 1)
+        local entries_to_display = math.floor((term_height - 3) / 3)
+        local startIndex = math.max(1, #guestbookEntries - entries_to_display + 1)
         for index = startIndex, #guestbookEntries do
             local value = guestbookEntries[index]
-            local y = (index - startIndex + 1) * 3 + 2
+            local y = (index - startIndex) * 3 + 2
 
             term.setCursorPos(2, y)
             term.write(value.title)
@@ -46,7 +47,7 @@ function drawScreen()
         hours = string.format("%02d", hours)
         minutes = string.format("%02d", minutes)
 
-        term.setCursorPos(1,1)
+        term.setCursorPos(1, 1)
         term.write(tostring(year) .. "/" .. tostring(month) .. "/" .. tostring(day) .. " " .. tostring(hours) .. ":" .. tostring(minutes) .. " -- MC time!")
     elseif screen == "sign" then
         term.setCursorPos(2, 2)
