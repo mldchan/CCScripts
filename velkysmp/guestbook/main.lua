@@ -60,7 +60,7 @@ function drawScreen()
         mon.setCursorPos(1, 1)
         mon.write("Akatsuki's guestbook - " .. tostring(year) ..
         "/" ..
-        tostring(month) .. "/" .. tostring(day) .. " " .. tostring(hours) .. ":" .. tostring(minutes))
+        tostring(month) .. "/" .. tostring(day) .. " " .. tostring(hours) .. ":" .. tostring(minutes) .. " IGT")
     elseif screen == "sign" then
         mon.setCursorPos(2, 2)
         prettyWrite(mon, "Please enter the title of your entry.")
