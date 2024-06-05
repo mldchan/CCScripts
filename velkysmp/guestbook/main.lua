@@ -207,7 +207,7 @@ while true do
     end
 
     if tempTime < os.time() then
-        tempTime = os.time() + 0.02
+        tempTime = os.time() + 0.01
         drawScreen()
     end
 end
