@@ -129,6 +129,8 @@ function drawScreen()
 end
 
 function drawTerm()
+    term.clear()
+
     if termScreen == "idle" then
         term.setCursorPos(2, 2)
         term.write("[ Manage ]")
