@@ -37,7 +37,7 @@ function drawScreen()
         end
 
         mon.setCursorPos(2, mon_height - 1)
-        mon.write("[ Sign ]")
+        mon.write("[ Sign this guestbook ]")
 
         -- mon.setCursorPos(11, mon_height - 1)
         -- mon.write("[ Management ]")
@@ -58,9 +58,9 @@ function drawScreen()
         minutes = string.format("%02d", minutes)
 
         mon.setCursorPos(1, 1)
-        mon.write(tostring(year) ..
+        mon.write("Akatsuki's guestbook - " .. tostring(year) ..
         "/" ..
-        tostring(month) .. "/" .. tostring(day) .. " " .. tostring(hours) .. ":" .. tostring(minutes) .. " -- MC time!")
+        tostring(month) .. "/" .. tostring(day) .. " " .. tostring(hours) .. ":" .. tostring(minutes))
     elseif screen == "sign" then
         mon.setCursorPos(2, 2)
         prettyWrite(mon, "Please enter the title of your entry.")
@@ -147,7 +147,7 @@ while true do
     event, p1, p2, p3, p4, p5 = os.pullEvent()
     if event == "monitor_touch" then
         if screen == "main" then
-            if p2 > 1 and p2 < 10 and p3 == mon_height - 1 then
+            if p2 > 1 and p2 < 25 and p3 == mon_height - 1 then
                 screen = "sign"
                 drawScreen()
             end
