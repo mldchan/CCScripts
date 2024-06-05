@@ -136,7 +136,7 @@ function drawTerm()
             prettyWrite(term, "[ Next ]")
         end
 
-        term.setCursorPos(2, 9)
+        term.setCursorPos(2, 11)
         term.write("[ Log out ]")
     end
 end
@@ -185,7 +185,7 @@ while true do
                 drawTerm()
             end
 
-            if p2 > 1 and p2 < 13 and p3 == 9 then
+            if p2 > 1 and p2 < 13 and p3 == 11 then
                 termScreen = "idle"
                 drawTerm()
             end
