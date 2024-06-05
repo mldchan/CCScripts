@@ -32,10 +32,10 @@ local mon_width, mon_height = mon.getSize()
 local managementIndex = 1
 
 function drawScreen()
-    mon.clear()
-
     mon.setBackgroundColor(colors.black)
     mon.setTextColor(colors.white)
+
+    mon.clear()
 
     if screen == "main" then
         local entries_to_display = math.floor((mon_height - 3) / 3)
@@ -99,7 +99,6 @@ function drawScreen()
 
         writeFile("guestbook.json", json.encode(guestbookEntries))
         screen = "main"
-        drawScreen()
     end
 end
 
