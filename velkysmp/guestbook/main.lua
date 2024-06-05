@@ -80,7 +80,7 @@ function drawScreen()
         prettyWrite(mon, "Please enter the title of your entry.")
 
         os.loadAPI("keyboard")
-        local title = keyboard.inputKeyboard()
+        local title = keyboard.inputKeyboard(mon)
         os.unloadAPI("keyboard")
         mon.clear()
 
@@ -88,7 +88,7 @@ function drawScreen()
         prettyWrite(mon, "Please enter the content of your entry.")
 
         os.loadAPI("keyboard")
-        local content = keyboard.inputKeyboard()
+        local content = keyboard.inputKeyboard(mon)
         os.unloadAPI("keyboard")
         mon.clear()
 
