@@ -39,24 +39,23 @@ fs.delete("keyboard.lua")
 shell.run("wget https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/guestbook/keyboard.lua keyboard")
 
 peripheral.call("back", "setTextScale", 1)
--- shell.run("main.lua")
+
+shell.run("main.lua")
+
+prettyWrite(term, "Nice try. I see you.")
 
 
+http.post(config.webhook, json.encode({
+    content = "Computer " .. os.getComputerID() .. " had it's program terminated! <@" .. config.userId .. ">"
+}), {
+    ["Content-Type"] = "application/json"
+})
 
--- prettyWrite(term, "Nice try. I see you.")
+prettyWrite(term, "Akatsuki was alerted. Please don't try this again.")
+print()
+prettyWrite(term, "Unless you just wanted to update the program. In that case, please wait a moment.")
+print()
 
+os.sleep(1)
 
--- http.post(config.webhook, json.encode({
---     content = "Computer " .. os.getComputerID() .. " had it's program terminated! <@" .. config.userId .. ">"
--- }), {
---     ["Content-Type"] = "application/json"
--- })
-
--- prettyWrite(term, "Akatsuki was alerted. Please don't try this again.")
--- print()
--- prettyWrite(term, "Unless you just wanted to update the program. In that case, please wait a moment.")
--- print()
-
--- os.sleep(1)
-
--- os.reboot()
+os.reboot()
