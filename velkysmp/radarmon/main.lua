@@ -60,13 +60,13 @@ while true do
         end
 
         if not playerKnown then
-            table.remove(playersKnown, i)
             http.post(config.webhook, json.encode({
                 content = "Player " .. playersKnown[i] .. " was no longer detected at base!",
                 username = "Radar"
             }), {
                 ["Content-Type"] = "application/json"
             })
+            table.remove(playersKnown, i)
         end
     end
 end
