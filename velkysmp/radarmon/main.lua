@@ -12,6 +12,10 @@
 -- You should have received a copy of the GNU General Public License along with this program. 
 -- If not, see <https://www.gnu.org/licenses/>.
 
+require("utils")
+local json = require("json")
+local config = json.decode(readFile("config.json"))
+
 radar = peripheral.wrap("back") -- Radar peripheral
 
 local playersKnown = {} -- Names of players currently known
