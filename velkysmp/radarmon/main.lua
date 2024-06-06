@@ -31,16 +31,16 @@ while true do
     for _, player in ipairs(playersScanned) do
         local playerKnown = false
         for _, known in ipairs(playersKnown) do
-            if known[2] == player[2] then
+            if known == player.name then
                 playerKnown = true
                 break
             end
         end
 
         if not playerKnown then
-            table.insert(playersKnown, player)
+            table.insert(playersKnown, player.name)
             http.post(config.webhook, json.encode({
-                content = "Player " .. player[2] .. " was detected at base!",
+                content = "Player " .. player.name .. " was detected at base!",
                 username = "Radar"
             }), {
                 ["Content-Type"] = "application/json"
@@ -53,7 +53,7 @@ while true do
     for i = #playersKnown, 1, -1 do
         local playerKnown = false
         for _, player in ipairs(playersScanned) do
-            if playersKnown[i][2] == player[2] then
+            if playersKnown[i] == player.name then
                 playerKnown = true
                 break
             end
@@ -62,7 +62,7 @@ while true do
         if not playerKnown then
             table.remove(playersKnown, i)
             http.post(config.webhook, json.encode({
-                content = "Player " .. playersKnown[i][2] .. " was no longer detected at base!",
+                content = "Player " .. playersKnown[i] .. " was no longer detected at base!",
                 username = "Radar"
             }), {
                 ["Content-Type"] = "application/json"
