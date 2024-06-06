@@ -151,7 +151,7 @@ function inputKeyboard(term)
 	drawKeyboard(term)
 	i = 11
 	while true do
-		local args = { os.pullEvent() }
+		local args = { os.pullEventRaw() }
 		if args[1] == "monitor_touch" or args[1] == "mouse_click" then
 			-- Check Y value first!
 			if args[4] == 14 then

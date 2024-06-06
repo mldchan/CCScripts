@@ -178,7 +178,7 @@ local computerMsgsStatus = {}
 os.startTimer(5)
 
 while true do
-  event, p1, p2, p3, p4, p5 = os.pullEvent()
+  event, p1, p2, p3, p4, p5 = os.pullEventRaw()
   if event == "peripheral_detach" then
     -- p1 - side, p2 - type
     http.post(config.webhook, json.encode({

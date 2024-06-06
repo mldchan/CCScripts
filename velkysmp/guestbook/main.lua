@@ -161,7 +161,7 @@ local tempTime = os.time()
 
 while true do
     os.queueEvent("tick")
-    event, p1, p2, p3, p4, p5 = os.pullEvent()
+    event, p1, p2, p3, p4, p5 = os.pullEventRaw()
     if event == "monitor_touch" then
         if screen == "main" then
             if p2 > 1 and p2 < 25 and p3 == mon_height - 1 then

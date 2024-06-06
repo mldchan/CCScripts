@@ -107,7 +107,7 @@ drawMainScreen()
 
 while true do
     -- Wait for an event, or sleep for a short duration
-    local event, p1, p2, p3, p4, p5 = os.pullEvent()
+    local event, p1, p2, p3, p4, p5 = os.pullEventRaw()
     if event == "monitor_resize" then
         drawMainScreen()
     elseif event == "redstone" then

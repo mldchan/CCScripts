@@ -61,7 +61,7 @@ function prompt(prompt)
         term.setCursorPos(1, pos[2])
         term.write(prompt .. " " .. content)
 
-        event, p1 = os.pullEvent()
+        event, p1 = os.pullEventRaw()
         if event == "char" then
             content = content .. p1
         elseif event == "key" then
