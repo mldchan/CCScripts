@@ -144,7 +144,7 @@ function drawTerm()
             prettyWrite(term, "[ Previous ]")
         end
 
-        if managementIndex ~= #guestbookEntries - 1 then
+        if managementIndex ~= #guestbookEntries then
             term.setCursorPos(15, 9)
             prettyWrite(term, "[ Next ]")
         end
@@ -194,7 +194,7 @@ while true do
                 drawTerm()
             end
 
-            if p2 > 14 and p2 < 22 and p3 == 9 and managementIndex ~= #guestbookEntries - 1 then
+            if p2 > 14 and p2 < 22 and p3 == 9 and managementIndex ~= #guestbookEntries then
                 managementIndex = managementIndex + 1
                 drawTerm()
             end
