@@ -35,8 +35,6 @@ shell.run("wget https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/ma
 fs.delete("utils.lua")
 shell.run("wget https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/utils.lua utils.lua")
 
-peripheral.call("back", "setTextScale", 1)
-
 shell.run("main.lua")
 
 prettyWrite(term, "Nice try. I see you.")
