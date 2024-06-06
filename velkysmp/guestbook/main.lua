@@ -185,6 +185,9 @@ while true do
         elseif termScreen == "management" then
             if p2 > 1 and p2 < 13 and p3 == 7 then
                 table.remove(guestbookEntries, managementIndex)
+                if #guestbookEntries == managementIndex then
+                    managementIndex = managementIndex - 1
+                end
                 writeFile("guestbook.json", json.encode(guestbookEntries))
                 drawTerm()
             end
