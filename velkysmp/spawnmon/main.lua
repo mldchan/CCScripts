@@ -1,15 +1,15 @@
 -- ComputerCraftScripts
 -- Copyright (C) 2024  Akatsuki
 
--- This program is free software: you can redistribute it and/or modify it under the terms of the 
--- GNU General Public License as published by the Free Software Foundation, either version 3 of 
+-- This program is free software: you can redistribute it and/or modify it under the terms of the
+-- GNU General Public License as published by the Free Software Foundation, either version 3 of
 -- the License, or (at your option) any later version.
 
--- This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without 
--- even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+-- This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+-- even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 -- GNU General Public License for more details.
 
--- You should have received a copy of the GNU General Public License along with this program. 
+-- You should have received a copy of the GNU General Public License along with this program.
 -- If not, see <https://www.gnu.org/licenses/>.
 
 
@@ -175,8 +175,6 @@ rednet.host("Akatsuki", config.hostname)
 local knownComputers = {}
 local computerMsgsStatus = {}
 
-os.startTimer(5)
-
 while true do
   event, p1, p2, p3, p4, p5 = os.pullEventRaw()
   if event == "peripheral_detach" then
@@ -205,7 +203,7 @@ while true do
         if value == "sent" then
           http.post(config.webhook, json.encode({
             content = "Computer " ..
-            index .. " did not respond when sent from " .. os.getComputerID() .. "! <@" .. config.userId .. ">"
+                index .. " did not respond when sent from " .. os.getComputerID() .. "! <@" .. config.userId .. ">"
           }), {
             ["Content-Type"] = "application/json"
           })
@@ -255,23 +253,23 @@ while true do
   if event == "rednet_message" then
     -- p1 - sender id, p2 - message, p3 - protocol
     if p2 == "ping" and p3 == "Akatsuki" then
-        rednet.send(p1, "pong", "Akatsuki")
-        print("Ping response sent to " .. tostring(p1))
+      rednet.send(p1, "pong", "Akatsuki")
+      print("Ping response sent to " .. tostring(p1))
     end
 
     if p2 == "pong" and p3 == "Akatsuki" then
-        print("Received pong from " .. tostring(p1))
-        computerMsgsStatus[p1] = "received"
-        -- add to list of known computers if not already there
-        if not knownComputers[p1] then
-            print("Registering new known computer " .. tostring(p1))
-            knownComputers[p1] = true
-            http.post(config.webhook, json.encode({
-                content = "Computer " .. p1 .. " has connected from " .. os.getComputerID() .. "!"
-            }), {
-                ["Content-Type"] = "application/json"
-            })
-        end
+      print("Received pong from " .. tostring(p1))
+      computerMsgsStatus[p1] = "received"
+      -- add to list of known computers if not already there
+      if not knownComputers[p1] then
+        print("Registering new known computer " .. tostring(p1))
+        knownComputers[p1] = true
+        http.post(config.webhook, json.encode({
+          content = "Computer " .. p1 .. " has connected from " .. os.getComputerID() .. "!"
+        }), {
+          ["Content-Type"] = "application/json"
+        })
+      end
     end
-end
+  end
 end

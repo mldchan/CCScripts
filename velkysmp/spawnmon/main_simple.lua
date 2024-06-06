@@ -1,15 +1,15 @@
 -- ComputerCraftScripts
 -- Copyright (C) 2024  Akatsuki
 
--- This program is free software: you can redistribute it and/or modify it under the terms of the 
--- GNU General Public License as published by the Free Software Foundation, either version 3 of 
+-- This program is free software: you can redistribute it and/or modify it under the terms of the
+-- GNU General Public License as published by the Free Software Foundation, either version 3 of
 -- the License, or (at your option) any later version.
 
--- This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without 
--- even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+-- This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+-- even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 -- GNU General Public License for more details.
 
--- You should have received a copy of the GNU General Public License along with this program. 
+-- You should have received a copy of the GNU General Public License along with this program.
 -- If not, see <https://www.gnu.org/licenses/>.
 
 
@@ -59,14 +59,15 @@ function drawMainScreen()
     mon.write("Akatsuki's VelkySMP monitor - since 2024/02/25!")
 
     mon.setCursorPos(1, 2)
-    mon.write("The times played are total times on both the old and this server. Due to MC limitations, only 12 players will be online at once.")
+    mon.write(
+    "The times played are total times on both the old and this server. Due to MC limitations, only 12 players will be online at once.")
 
     mon.setCursorPos(1, 3)
     if setting_show_online_first then
         mon.write("Top players by online and playtime")
     else
         mon.write("Top players by playtime")
-    end    
+    end
 
     local items_count = mon_height - 8
     for k, v in ipairs(api_sorted) do
