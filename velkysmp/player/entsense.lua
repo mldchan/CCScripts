@@ -19,14 +19,8 @@ while true do
   local mobs = {}
 
   for _, value in ipairs(mobsScan) do
-    local blackListed = false
-    for _, blItem in ipairs(ignoreList) do
-      if blItem == value.displayName then
-        blackListed = true
-      end
-    end
-
-    if not blackListed then
+    local detail = con.getMetaByID(value.id)
+    if detail.food ~= nil then
       table.insert(mobs, value)
     end
   end
