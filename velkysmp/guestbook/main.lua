@@ -1,4 +1,4 @@
--- ComputerCraftScripts
+-- ComputerCraftScripts: Guestbook Script
 -- Copyright (C) 2024  Akatsuki
 
 -- This program is free software: you can redistribute it and/or modify it under the terms of the
@@ -30,6 +30,7 @@ local mon = peripheral.wrap(config.side)
 local mon_width, mon_height = mon.getSize()
 
 local managementIndex = 1
+local lastLocalTime = os.time("utc")
 
 function drawScreen()
     mon.setBackgroundColor(colors.black)
@@ -157,8 +158,6 @@ end
 drawScreen()
 drawTerm()
 
-local tempTime = os.time()
-
 while true do
     os.queueEvent("tick")
     event, p1, p2, p3, p4, p5 = os.pullEventRaw()
@@ -209,8 +208,8 @@ while true do
         end
     end
 
-    if tempTime < os.time() then
-        tempTime = os.time() + 0.01
+    if lastLocalTime ~= os.time("utc") then
+      lastLocalTime = os.time("utc")
         drawScreen()
     end
 end
