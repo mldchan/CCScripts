@@ -38,6 +38,8 @@ function drawScreen()
 
     mon.clear()
 
+    mon.write("Screen: " .. screen)
+
     if screen == "main" then
         local time = os.time()
         local dayUnfinished = os.day()
