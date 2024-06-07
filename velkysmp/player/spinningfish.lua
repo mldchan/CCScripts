@@ -24,9 +24,7 @@ while true do
   local mobs = {}
 
   for _, value in ipairs(mobsScan) do
-    if value.name ~= "Creeper" and value.name ~= "Cow" and value.name ~= "Item" and value.name ~= "Chicken" and value.name ~= "Skeleton" and value.name ~= "Zombie" and value.name ~= "Spider" and value.name ~= "quark:glass_item_frame" and value.name ~= "fastener" then
-      table.insert(mobs, value)
-    end
+    table.insert(mobs, value)
   end
 
   can.clear()
