@@ -2,6 +2,7 @@
 local con = peripheral.wrap("back")
 
 local mobsList = {}
+local lastMobsCount = 0
 
 function tableContains(tabl, el)
     for _, value in pairs(tabl) do
@@ -14,6 +15,11 @@ end
 
 while true do
   mobs = con.sense()
+
+  if lastMobsCount ~= #mobsList then
+    con.tell("Debug: Mobs count changed from " .. tostring(lastMobsCount) .. " to " .. tostring(#mobsList))
+  end
+
 
   for index, value in ipairs(mobsList) do
     if not tableContains(mobsList, value) then
