@@ -20,7 +20,7 @@ while true do
 
   for _, value in ipairs(mobsScan) do
     local blackListed = false
-    for _, blItem in ipairs(blackListed) do
+    for _, blItem in ipairs(ignoreList) do
       if blItem == value.displayName then
         blackListed = true
       end
