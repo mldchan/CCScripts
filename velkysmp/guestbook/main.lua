@@ -39,7 +39,6 @@ function drawScreen()
     mon.clear()
 
     if screen == "main" then
-    
         local time = os.time()
         local dayUnfinished = os.day()
         local year = math.floor(dayUnfinished / 365) + 1
@@ -60,6 +59,7 @@ function drawScreen()
 
         local entries_to_display = math.floor((mon_height - 3) / 3)
         local startIndex = math.max(1, #guestbookEntries - entries_to_display + 1)
+
         for index = startIndex, #guestbookEntries do
             local value = guestbookEntries[index]
             local y = (index - startIndex) * 3 + 3
@@ -72,7 +72,6 @@ function drawScreen()
 
         mon.setCursorPos(2, mon_height - 1)
         mon.write("[ Sign this guestbook ]")
-
     elseif screen == "sign" then
         mon.setCursorPos(2, 2)
         prettyWrite(mon, "Please enter the title of your entry.")
