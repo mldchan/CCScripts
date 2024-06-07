@@ -90,9 +90,18 @@ function drawScreen()
       end
     end
 
+    if playerName == "" then
+      mon.setTextColor(colors.red)
+      mon.write("A player wasn't found nearby...")
+      os.sleep(1)
+      mon.clear()
+      screen = "main"
+      drawScreen()
+    end
+
     mon.setCursorPos(2, 2)
     prettyWrite(mon, "Please enter the message.")
-    mon.setCursorPos(4, 2)
+    mon.setCursorPos(2, 4)
     prettyWrite(mon, "The closest player (" .. playerName .. ") was used for the title.")
 
     os.loadAPI("keyboard")
