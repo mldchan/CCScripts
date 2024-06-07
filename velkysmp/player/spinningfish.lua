@@ -34,6 +34,8 @@ while true do
     end
   end
 
+  can.clear()
+
   for _, value in ipairs(mobs) do
     local can3d = can.create({x=value.x,y=value.y,z=value.z})
     local fish = can3d.addItem({x=0,y=1,z=0}, "minecraft:fish")
