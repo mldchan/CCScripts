@@ -11,6 +11,6 @@ local rot = 0
 while true do
   os.sleep(0.05)
   rot = rot + 36
-  fish.setRotation({x=0,y=rot,z=0})
+  fish.setRotation(0, rot, 0)
 end
 
