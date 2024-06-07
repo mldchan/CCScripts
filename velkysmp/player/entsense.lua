@@ -18,14 +18,16 @@ while true do
   for index, value in ipairs(mobsList) do
     if not tableContains(mobsList, value) then
       table.insert(mobsList, value)
-      con.say("Entity " .. value.name .. " has dissapeared!")
+      print("Entity " .. value.displayName .. " has been added from the list.")
+      con.say("Entity " .. value.name .. " has apeared!")
     end
   end
 
   for index, value in ipairs(mobsList) do
     if not tableContains(mobs, value) then
       table.remove(mobsList, index)
-      con.say("Entity " .. value.name .. " has apeared!")
+      print("Entity " .. value.displayName .. " has been removed from the list.")
+      con.say("Entity " .. value.name .. " has dissapeared!")
     end
   end
 end
