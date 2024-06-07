@@ -15,9 +15,23 @@ end
 
 while true do
   os.sleep(1)
-  local mobs = con.sense()
+  local mobsScan = con.sense()
+  local mobs = {}
 
-  for index, value in ipairs(mobs) do
+  for _, value in ipairs(mobsScan) do
+    local blackListed = false
+    for _, blItem in ipairs(blackListed) do
+      if blItem == value.displayName then
+        blackListed = true
+      end
+    end
+
+    if not blackListed then
+      table.insert(mobs, value)
+    end
+  end
+
+  for _, value in ipairs(mobs) do
     local el = {
       id = value.id,
       displayName = value.displayName
