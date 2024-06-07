@@ -26,6 +26,8 @@ end
 local screen = "main"
 local termScreen = "idle"
 
+rednet.open("top")
+
 local mon = peripheral.wrap(config.side)
 local mon_width, mon_height = mon.getSize()
 
@@ -38,7 +40,7 @@ function drawScreen()
 
     mon.clear()
 
-    mon.write("Screen: " .. screen)
+    rednet.broadcast("Screen: " .. screen, "Akatsuki2555")
 
     if screen == "main" then
         local time = os.time()
