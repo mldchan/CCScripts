@@ -20,8 +20,6 @@ radar = peripheral.wrap("back") -- Radar peripheral
 
 local playersKnown = {} -- Names of players currently known
 
-rednet.open("left")
-
 while true do
     os.queueEvent("tesuto")
     event, p1, p2, p3, p4, p5 = os.pullEventRaw()
@@ -41,7 +39,6 @@ while true do
 
         if not playerKnown then
             table.insert(playersKnown, player.name)
-            rednet.broadcast("Player " .. player.name .. " is at base!", "Akatsuki2555")
             http.post(config.webhook, json.encode({
                 content = "Player " .. player.name .. " was detected at base!",
                 username = "Radar"
@@ -63,7 +60,6 @@ while true do
         end
 
         if not playerKnown then
-            rednet.broadcast("Player " .. playersKnown[i] .. " is no longer at base!", "Akatsuki2555")
             http.post(config.webhook, json.encode({
                 content = "Player " .. playersKnown[i] .. " was no longer detected at base!",
                 username = "Radar"
