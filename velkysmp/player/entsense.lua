@@ -17,7 +17,7 @@ while true do
   local mobs = con.sense()
 
   for index, value in ipairs(mobs) do
-    con.tell("Mob: " .. value.displayName)
+    con.tell("Mob: " .. value.uuid)
   end
 
 end
