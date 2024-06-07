@@ -24,11 +24,13 @@ while true do
   local mobs = {}
 
   for _, value in ipairs(mobsScan) do
-    if value.id ~= nil then
-      local detail = con.getMetaByID(value.id)
-      if detail ~= nil then
-        if detail.food ~= nil then
-          table.insert(mobs, value)
+    if value.displayName ~= "Creeper" and value.displayName ~= "Cow" and value.displayName ~= "Item" and value.displayName ~= "Chicken" and value.displayName ~= "Skeleton" and value.displayName ~= "Zombie" and value.displayName ~= "Spider" then
+      if value.id ~= nil then
+        local detail = con.getMetaByID(value.id)
+        if detail ~= nil then
+          if detail.food ~= nil then
+            table.insert(mobs, value)
+          end
         end
       end
     end
