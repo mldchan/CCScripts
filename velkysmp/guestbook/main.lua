@@ -39,24 +39,7 @@ function drawScreen()
     mon.clear()
 
     if screen == "main" then
-        local entries_to_display = math.floor((mon_height - 3) / 3)
-        local startIndex = math.max(1, #guestbookEntries - entries_to_display + 1)
-        for index = startIndex, #guestbookEntries do
-            local value = guestbookEntries[index]
-            local y = (index - startIndex) * 3 + 3
-
-            mon.setCursorPos(2, y)
-            mon.write(value.title)
-            mon.setCursorPos(3, y + 1)
-            mon.write(value.content)
-        end
-
-        mon.setCursorPos(2, mon_height - 1)
-        mon.write("[ Sign this guestbook ]")
-
-        -- mon.setCursorPos(11, mon_height - 1)
-        -- mon.write("[ Management ]")
-
+    
         local time = os.time()
         local dayUnfinished = os.day()
         local year = math.floor(dayUnfinished / 365) + 1
@@ -73,9 +56,23 @@ function drawScreen()
         minutes = string.format("%02d", minutes)
 
         mon.setCursorPos(1, 1)
-        mon.write("Akatsuki's guestbook - " .. tostring(year) ..
-            "/" ..
-            tostring(month) .. "/" .. tostring(day) .. " " .. tostring(hours) .. ":" .. tostring(minutes) .. " IGT")
+        mon.write("Akatsuki's guestbook - " .. tostring(year) .. "/" .. tostring(month) .. "/" .. tostring(day) .. " " .. tostring(hours) .. ":" .. tostring(minutes) .. " IGT")
+
+        local entries_to_display = math.floor((mon_height - 3) / 3)
+        local startIndex = math.max(1, #guestbookEntries - entries_to_display + 1)
+        for index = startIndex, #guestbookEntries do
+            local value = guestbookEntries[index]
+            local y = (index - startIndex) * 3 + 3
+
+            mon.setCursorPos(2, y)
+            mon.write(value.title)
+            mon.setCursorPos(3, y + 1)
+            mon.write(value.content)
+        end
+
+        mon.setCursorPos(2, mon_height - 1)
+        mon.write("[ Sign this guestbook ]")
+
     elseif screen == "sign" then
         mon.setCursorPos(2, 2)
         prettyWrite(mon, "Please enter the title of your entry.")
@@ -211,6 +208,6 @@ while true do
 
     if lastLocalTime ~= os.time("utc") then
       lastLocalTime = os.time("utc")
-        drawScreen()
+      drawScreen()
     end
 end
