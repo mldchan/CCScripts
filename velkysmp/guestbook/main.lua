@@ -100,6 +100,7 @@ function drawScreen()
 
         writeFile("guestbook.json", json.encode(guestbookEntries))
         screen = "main"
+        drawScreen()
     end
 end
 
