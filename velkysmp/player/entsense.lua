@@ -2,7 +2,6 @@
 local con = peripheral.wrap("back")
 
 local mobsList = {}
-local ignoreList = {"Cow", "Pig", "Chicken", "Zombie", "Skeleton", "Horse", "Creeper"}
 
 function tableContains(tabl, el)
     for _, value in pairs(tabl) do
@@ -19,9 +18,13 @@ while true do
   local mobs = {}
 
   for _, value in ipairs(mobsScan) do
-    local detail = con.getMetaByID(value.id)
-    if detail.food ~= nil then
-      table.insert(mobs, value)
+    if value.id ~= nil then
+      local detail = con.getMetaByID(value.id)
+      if detail ~= nil then
+        if detail.food ~= nil then
+          table.insert(mobs, value)
+        end
+      end
     end
   end
 
