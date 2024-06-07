@@ -14,24 +14,11 @@ end
 
 while true do
   os.sleep(1)
-  mobs = con.sense()
+  local mobs = con.sense()
 
-  con.tell("Debug: Mobs count is " .. tostring(#mobsList))
-
-  for index, value in ipairs(mobsList) do
-    if not tableContains(mobsList, value) then
-      table.insert(mobsList, value)
-      print("Entity " .. value.displayName .. " has been added from the list.")
-      con.say("Entity " .. value.name .. " has apeared!")
-    end
+  for index, value in ipairs(mobs) do
+    con.tell("Mob: " .. value.displayName)
   end
 
-  for index, value in ipairs(mobsList) do
-    if not tableContains(mobs, value) then
-      table.remove(mobsList, index)
-      print("Entity " .. value.displayName .. " has been removed from the list.")
-      con.say("Entity " .. value.name .. " has dissapeared!")
-    end
-  end
 end
 
