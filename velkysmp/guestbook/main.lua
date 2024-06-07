@@ -168,11 +168,6 @@ while true do
                 screen = "sign"
                 drawScreen()
             end
-
-            if p2 > 11 and p2 < 23 and p3 == mon_height - 1 then
-                screen = "enter_password"
-                drawScreen()
-            end
         end
     end
 
