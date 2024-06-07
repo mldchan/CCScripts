@@ -63,7 +63,7 @@ while true do
         end
 
         if not playerKnown then
-            rednet.broadcast("Player " .. player.name .. " is no longer at base!", "Akatsuki2555")
+            rednet.broadcast("Player " .. player .. " is no longer at base!", "Akatsuki2555")
             http.post(config.webhook, json.encode({
                 content = "Player " .. playersKnown[i] .. " was no longer detected at base!",
                 username = "Radar"
