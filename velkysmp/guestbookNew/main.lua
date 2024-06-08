@@ -3,7 +3,7 @@ local json = require("json")
 local comments = {}
 
 function fetchComments()
-	local rawJson = http.get("http://akatsuki-api.rf.gd/get_comments.php").readAll()
+	local rawJson = http.get("http://akatsuki-api.rf.gd/get_comments.php?i=1").readAll()
 	comments = json.decode(rawJson)
 end
 
