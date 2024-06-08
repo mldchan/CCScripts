@@ -11,6 +11,7 @@ while true do
     timer = os.time("utc")
 
     local random = math.random(1000)
+    print("Random value: ", random)
     if random == 1000 then
       local choices = {"Meow :3", "Meow", "Nya", "Nya :3"}
       con.say(choices[math.random(#choices)])
