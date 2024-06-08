@@ -22,15 +22,15 @@ print("bg is", bg)
 
 -- Meowing
 con.tell("[Starting] Automatic meowing")
-shell.run(bg .. " /meow")
+shell.run(bg .. " /meow.lua")
 con.tell("[Started] Automatic meowing")
 
 -- Entity display
 con.tell("[Starting] Entity display list")
-shell.run(bg .. " /entdisplay")
+shell.run(bg .. " /entdisplay.lua")
 con.tell("[Started] Entity display list")
 
 -- Spinning fish :3 
 con.tell("[Starting] Spinning fish")
-shell.run(bg .. " /spinningfish")
+shell.run(bg .. " /spinningfish.lua")
 con.tell("[Started] Spinning fish")
