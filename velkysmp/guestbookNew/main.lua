@@ -4,7 +4,7 @@ local comments = {}
 
 function fetchComments()
 	local rawJson = http.get("http://akatsuki-api.rf.gd/get_comments.php?i=1").readAll()
-  prettyWrite(term, rawJson)
+  term.write(rawJson)
 	comments = json.decode(rawJson)
 end
 
