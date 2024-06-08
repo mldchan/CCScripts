@@ -18,6 +18,7 @@ checkForUpdates()
 con.tell("Checking for updates was finished.")
 
 local bg = shell.resolveProgram("bg")
+print("bg is", bg)
 
 -- Meowing
 con.tell("[Starting] Automatic meowing")
