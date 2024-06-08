@@ -9,10 +9,10 @@ end
 con.tell("Starting AkatsukiOS...")
 updateLib()
 
-local akatsuki = require("akatsuki")
+require("akatsuki")
 
 con.tell("Checking for updates and downloading them...")
-akatsuki.checkForUpdates()
+checkForUpdates()
 con.tell("Checking for updates was finished.")
 
 -- Meowing
