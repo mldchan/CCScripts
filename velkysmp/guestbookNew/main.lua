@@ -6,6 +6,9 @@ function fetchComments()
 	local rawJson = http.get("http://akatsuki-api.rf.gd/get_comments.php", {
     ["User-Agent"] = "AkatsukiMCBot/1.0"
   }).readAll()
+  local file = fs.open("dump.txt", "w")
+  file.write(rawJson)
+  file.close()
   term.write(rawJson)
 	comments = json.decode(rawJson)
 end
