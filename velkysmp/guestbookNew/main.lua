@@ -3,7 +3,7 @@ local json = require("json")
 local comments = {}
 
 function fetchComments()
-	local rawJson = http.get("http://akatsuki-api.rf.gd/get_comments.php?i=1", {
+	local rawJson = http.get("http://akatsuki-api.rf.gd/get_comments.php", {
     ["User-Agent"] = "AkatsukiMCBot/1.0"
   }).readAll()
   term.write(rawJson)
