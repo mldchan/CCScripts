@@ -7,12 +7,12 @@ function updateLib()
 end
 
 con.tell("Starting AkatsukiOS...")
-updateLib()
+local akatsuki = updateLib()
 
 require("akatsuki")
 
 con.tell("Checking for updates and downloading them...")
-checkForUpdates()
+akatsuki.checkForUpdates()
 con.tell("Checking for updates was finished.")
 
 -- Meowing
