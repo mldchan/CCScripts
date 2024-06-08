@@ -1,5 +1,6 @@
 
-local what = read("What? ")
+write("What? ")
+local what = read()
 
 if what == "aes" then
   shell.run("wget https://github.com/bighil/aeslua/raw/master/src/aeslua.lua")
