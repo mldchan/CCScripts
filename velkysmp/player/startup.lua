@@ -3,13 +3,13 @@ con = peripheral.wrap("back")
 
 function updateLib()
   fs.delete("akatsuki.lua")
-  shell.run("wget https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/commit/main/velkysmp/player/akatsuki.lua")
+  shell.run("wget https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/player/akatsuki.lua")
 end
 
 con.tell("Starting AkatsukiOS...")
-local akatsuki = updateLib()
+updateLib()
 
-require("akatsuki")
+local akatsuki = require("akatsuki")
 
 con.tell("Checking for updates and downloading them...")
 akatsuki.checkForUpdates()
