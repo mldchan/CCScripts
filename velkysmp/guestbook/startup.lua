@@ -27,6 +27,8 @@ http.post(config.webhook, json.encode({
 })
 
 function downloadStartupUpdate()
+    print("Startup: downloading update..")
+    -- Get string
     local startupUpdate = http.get("https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/guestbook/startup.lua")
     local startusCode, statusMessage = startupUpdate.getResponseCode()
     if startusCode ~= 200 then
@@ -36,13 +38,16 @@ function downloadStartupUpdate()
 
     local startupFileContent = startupUpdate.readAll()
 
+    print("Startup: deleting...")
     -- Delete the startup file
     fs.delete("startup.lua")
 
+    print("Startup: replacing..")
     -- Recreate the startup file
     local file = fs.open("startup.lua", "w")
     file.write(startupFileContent)
     file.close()
+    print("Startup: done updating.")
 end
 
 downloadStartupUpdate()
