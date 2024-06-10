@@ -24,8 +24,32 @@ http.post(config.webhook, json.encode({
     ["Content-Type"] = "application/json"
 })
 
-fs.delete("startup.lua")
-shell.run("wget https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/radarmon/startup.lua startup.lua")
+function downloadStartupUpdate()
+    print("Startup: downloading update..")
+    -- Get string
+    local startupUpdate = http.get("https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/radarmon/startup.lua")
+    local startusCode, statusMessage = startupUpdate.getResponseCode()
+    if startusCode ~= 200 then
+        printError("Server responded with message " .. statusMessage)
+        return
+    end
+
+    local startupFileContent = startupUpdate.readAll()
+
+    print("Startup: deleting...")
+    -- Delete the startup file
+    fs.delete("startup.lua")
+
+    print("Startup: replacing..")
+    -- Recreate the startup file
+    local file = fs.open("startup.lua", "w")
+    file.write(startupFileContent)
+    file.close()
+    print("Startup: done updating.")
+end
+
+downloadStartupUpdate()
+
 fs.delete("json.lua")
 shell.run("wget https://raw.githubusercontent.com/rxi/json.lua/master/json.lua json.lua")
 fs.delete("main.lua")
