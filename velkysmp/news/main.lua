@@ -41,7 +41,7 @@ end
 
 function renderDisplay()
     for index, value in ipairs(newsJson) do
-        mon.setCursorPos(monWidth - currentPos, i)
+        mon.setCursorPos(monWidth - currentPos, index)
         mon.write(value.date .. " -- " .. value.title .. " -- " .. value.content)
     end
 end
