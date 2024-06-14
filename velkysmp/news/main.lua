@@ -18,7 +18,15 @@ local config = json.decode(readFile("config.json"))
 local mon = peripheral.wrap("monitor_1")
 
 local news = http.get("https://akatsuki.nekoweb.org/news.json")
-local newsJson = json.decode(news.readAll())
+if news == nil then
+    mon.setCursorPos(1, 1)
+    mon.write("Failed to get news.")
+    while true do
+        evt, p1, p2, p3, p4, p5 = os.pullEventRaw()
+    end
+end
+local news1 = news.readAll()
+local newsJson = json.decode(news1)
 
 for i, v in ipairs(newsJson) do
 	if i == 3 then
