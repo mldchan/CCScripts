@@ -26,6 +26,7 @@ if news == nil then
     end
 end
 local news1 = news.readAll()
+print(news1)
 local newsJson = json.decode(news1)
 
 for i, v in ipairs(newsJson) do
