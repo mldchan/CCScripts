@@ -15,10 +15,10 @@
 
 -- wget run https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/spawnmon/startup.lua
 
-function downloadFile(f, url)
+function downloadFile(f, l)
     print(f.. ": downloading update..")
     -- Get string
-    local startupUpdate = http.get(url)
+    local startupUpdate = http.get(l)
     local startusCode, statusMessage = startupUpdate.getResponseCode()
     if startusCode ~= 200 then
         printError("Server responded with message " .. statusMessage)
