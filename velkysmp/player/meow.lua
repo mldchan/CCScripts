@@ -10,9 +10,9 @@ while true do
   if timer ~= os.time("utc") then
     timer = os.time("utc")
 
-    local random = math.random(100)
+    local random = math.random(1000)
     print("Random value: ", random)
-    if random == 100 then
+    if random == 1000 then
       local choices1 = {"Meow", "Nya", "Mrow", "Mroow", "Mraow"}
       local choices2 = {"~", ""}
       local choices3 = {":3", "", ":3c", ">:3"}
