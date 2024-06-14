@@ -27,16 +27,16 @@ local newsJson = json.decode(news1)
 local monWidth, monHeight = mon.getSize()
 local maxWidth = 0
 local currentPos = monWidth
+local tick = 0
 
 mon.setTextScale(1.5)
 
 for i, v in ipairs(newsJson) do
-	if i == 3 then
+    if i == 3 then
         return
     end
 
     maxWidth = math.max(maxWidth, #v.date + #v.title + #v.content + 8)
-
 end
 
 function renderDisplay()
@@ -50,10 +50,14 @@ while true do
     os.queueEvent("tick")
     evt, p1, p2, p3, p4, p5 = os.pullEventRaw()
 
-    currentPos = currentPos + 1
-    if currentPos > maxWidth then
-        currentPos = monWidth
-    end
+    tick = tick + 1
+    if tick > 10 then
+        tick = 0
+        currentPos = currentPos + 1
+        if currentPos > maxWidth then
+            currentPos = monWidth
+        end
 
-    renderDisplay()
+        renderDisplay()
+    end
 end
