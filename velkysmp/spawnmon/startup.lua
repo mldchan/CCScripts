@@ -1,42 +1,42 @@
 -- ComputerCraftScripts
 -- Copyright (C) 2024  Akatsuki
 
--- This program is free software: you can redistribute it and/or modify it under the terms of the 
--- GNU General Public License as published by the Free Software Foundation, either version 3 of 
+-- This program is free software: you can redistribute it and/or modify it under the terms of the
+-- GNU General Public License as published by the Free Software Foundation, either version 3 of
 -- the License, or (at your option) any later version.
 
--- This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without 
--- even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+-- This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+-- even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 -- GNU General Public License for more details.
 
--- You should have received a copy of the GNU General Public License along with this program. 
+-- You should have received a copy of the GNU General Public License along with this program.
 -- If not, see <https://www.gnu.org/licenses/>.
 
 
 -- wget run https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/spawnmon/startup.lua
 
 function downloadFile(f, l)
-    print(f.. ": downloading update..")
+    print(f .. ": downloading update..")
     -- Get string
     local startupUpdate = http.get(l)
-    local startusCode, statusMessage = startupUpdate.getResponseCode()
-    if startusCode ~= 200 then
-        printError("Server responded with message " .. statusMessage)
+    local status = {startupUpdate.getResponseCode()}
+    if status[1] ~= 200 then
+        printError("Server responded with message " .. status[2])
         return
     end
 
     local fileC = startupUpdate.readAll()
 
-    print(f..": deleting...")
+    print(f .. ": deleting...")
     -- Delete the startup file
-    fs.delete(f..".lua")
+    fs.delete(f .. ".lua")
 
-    print(f..": replacing..")
+    print(f .. ": replacing..")
     -- Recreate the startup file
-    local file = fs.open(f..".lua", "w")
+    local file = fs.open(f .. ".lua", "w")
     file.write(fileC)
     file.close()
-    print(f..": done updating.")
+    print(f .. ": done updating.")
 end
 
 downloadFile("startup", "https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/spawmon/startup.lua")
