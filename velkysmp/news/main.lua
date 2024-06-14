@@ -26,7 +26,7 @@ local newsJson = json.decode(news1)
 
 local monWidth, monHeight = mon.getSize()
 local maxWidth = 0
-local currentPos = monWidth
+local currentPos = 0
 
 mon.setTextScale(1.5)
 
@@ -39,6 +39,7 @@ for i, v in ipairs(newsJson) do
 end
 
 function renderDisplay()
+    mon.clear()
     for index, value in ipairs(newsJson) do
         mon.setCursorPos(monWidth - currentPos, index)
         mon.write(value.date .. " -- " .. value.title .. " -- " .. value.content)
@@ -51,9 +52,9 @@ while true do
 
     currentPos = currentPos + 1
     if currentPos > maxWidth then
-        currentPos = monWidth
+        currentPos = 0
     end
 
     renderDisplay()
-    os.sleep(0.2)
+    os.sleep(0.1)
 end
