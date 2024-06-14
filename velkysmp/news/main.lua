@@ -36,7 +36,7 @@ for i, v in ipairs(newsJson) do
         return
     end
 
-    maxWidth = math.max(maxWidth, #v.date + #v.title + #v.content + 8)
+    maxWidth = math.max(maxWidth, #v.date + #v.title + #v.content + 8 + monWidth)
 end
 
 function renderDisplay()
@@ -51,7 +51,7 @@ while true do
     evt, p1, p2, p3, p4, p5 = os.pullEventRaw()
 
     tick = tick + 1
-    if tick > 10 then
+    if tick > 100 then
         tick = 0
         currentPos = currentPos + 1
         if currentPos > maxWidth then
