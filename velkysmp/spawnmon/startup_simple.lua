@@ -18,7 +18,7 @@ peripheral.call("right", "clear")
 
 print("Checking updates...")
 
-function downloadStartupUpdate()
+function downloadFile()
     print("Startup: downloading update..")
     -- Get string
     local startupUpdate = http.get("https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/spawnmon/startup_simple.lua")
@@ -42,7 +42,7 @@ function downloadStartupUpdate()
     print("Startup: done updating.")
 end
 
-downloadStartupUpdate()
+downloadFile()
 fs.delete("json.lua")
 shell.run("wget https://raw.githubusercontent.com/rxi/json.lua/master/json.lua json.lua")
 fs.delete("main.lua")

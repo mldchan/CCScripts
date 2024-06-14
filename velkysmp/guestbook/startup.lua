@@ -12,13 +12,41 @@
 -- You should have received a copy of the GNU General Public License along with this program. 
 -- If not, see <https://www.gnu.org/licenses/>.
 
-settings.set("shell.allow_disk_startup", false)
+function downloadFile(f, url)
+    print(f.. ": downloading update..")
+    -- Get string
+    local startupUpdate = http.get(url)
+    local startusCode, statusMessage = startupUpdate.getResponseCode()
+    if startusCode ~= 200 then
+        printError("Server responded with message " .. statusMessage)
+        return
+    end
+
+    local fileC = startupUpdate.readAll()
+
+    print(f..": deleting...")
+    -- Delete the startup file
+    fs.delete(f..".lua")
+
+    print(f..": replacing..")
+    -- Recreate the startup file
+    local file = fs.open(f..".lua", "w")
+    file.write(fileC)
+    file.close()
+    print(f..": done updating.")
+end
+
+downloadFile("startup", "https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/guestbook/startup.lua")
+downloadFile("json", "https://raw.githubusercontent.com/rxi/json.lua/master/json.lua")
+downloadFile("main", "https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/guestbook/main.lua")
+downloadFile("utils", "https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/utils.lua")
+downloadFile("keyboard", "https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/guestbook/keyboard.lua")
+
+-- startup alret
 
 require("utils")
 local json = require("json")
 local config = json.decode(readFile("config.json"))
-
--- startup alret
 
 http.post(config.webhook, json.encode({
     content = "Computer " .. os.getComputerID() .. " has been started!"
@@ -26,47 +54,12 @@ http.post(config.webhook, json.encode({
     ["Content-Type"] = "application/json"
 })
 
-function downloadStartupUpdate()
-    print("Startup: downloading update..")
-    -- Get string
-    local startupUpdate = http.get("https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/guestbook/startup.lua")
-    local startusCode, statusMessage = startupUpdate.getResponseCode()
-    if startusCode ~= 200 then
-        printError("Server responded with message " .. statusMessage)
-        return
-    end
-
-    local startupFileContent = startupUpdate.readAll()
-
-    print("Startup: deleting...")
-    -- Delete the startup file
-    fs.delete("startup.lua")
-
-    print("Startup: replacing..")
-    -- Recreate the startup file
-    local file = fs.open("startup.lua", "w")
-    file.write(startupFileContent)
-    file.close()
-    print("Startup: done updating.")
-end
-
-downloadStartupUpdate()
-fs.delete("json.lua")
-shell.run("wget https://raw.githubusercontent.com/rxi/json.lua/master/json.lua json.lua")
-fs.delete("main.lua")
-shell.run("wget https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/guestbook/main.lua main.lua")
-fs.delete("utils.lua")
-shell.run("wget https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/utils.lua utils.lua")
-fs.delete("keyboard")
-fs.delete("keyboard.lua")
-shell.run("wget https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/guestbook/keyboard.lua keyboard")
 
 peripheral.call("back", "setTextScale", 1)
 
 shell.run("main.lua")
 
 prettyWrite(term, "Nice try. I see you.")
-
 
 http.post(config.webhook, json.encode({
     content = "Computer " .. os.getComputerID() .. " had it's program terminated! <@" .. config.userId .. ">"
