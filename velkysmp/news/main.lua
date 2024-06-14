@@ -24,15 +24,36 @@ print("Response: ", news1)
 news.close()
 local newsJson = json.decode(news1)
 
+local monWidth, monHeight = mon.getSize()
+local maxWidth = 0
+local currentPos = monWidth
+
+mon.setTextScale(1.5)
+
 for i, v in ipairs(newsJson) do
 	if i == 3 then
         return
     end
 
-    mon.setCursorPos(1, i)
-    mon.write(v.date .. " -- " .. v.content)
+    maxWidth = math.max(maxWidth, #v.date + #v.title + #v.content + 8)
+
+end
+
+function renderDisplay()
+    for index, value in ipairs(newsJson) do
+        mon.setCursorPos(monWidth - currentPos, i)
+        mon.write(value.date .. " -- " .. value.title .. " -- " .. value.content)
+    end
 end
 
 while true do
+    os.queueEvent("tick")
     evt, p1, p2, p3, p4, p5 = os.pullEventRaw()
+
+    currentPos = currentPos + 1
+    if currentPos > maxWidth then
+        currentPos = monWidth
+    end
+
+    renderDisplay()
 end
