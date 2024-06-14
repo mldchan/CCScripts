@@ -31,16 +31,15 @@ local currentPos = 0
 mon.setTextScale(1.5)
 
 for i, v in ipairs(newsJson) do
-    if i == 3 then
-        return
-    end
-
     maxWidth = math.max(maxWidth, #v.date + #v.title + #v.content + 8 + monWidth)
 end
 
 function renderDisplay()
     mon.clear()
     for index, value in ipairs(newsJson) do
+        if i == 3 then
+            break
+        end
         mon.setCursorPos(monWidth - currentPos, index)
         mon.write(value.date .. " -- " .. value.title .. " -- " .. value.content)
     end
