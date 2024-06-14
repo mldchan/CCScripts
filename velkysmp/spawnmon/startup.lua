@@ -18,10 +18,13 @@
 function downloadFile(f, l)
     print(f .. ": downloading update..")
     -- Get string
-    local startupUpdate = http.get(l)
-    local status = {startupUpdate.getResponseCode()}
-    if status[1] ~= 200 then
-        printError("Server responded with message " .. status[2])
+    local startupUpdate, errorMessage = http.get(l)
+    if startupUpdate == nil then
+        printError("Error while trying to download file " .. errorMessage)
+    end
+    local status, message = startupUpdate.getResponseCode()
+    if status ~= 200 then
+        printError("Server responded with message " .. message)
         return
     end
 
@@ -39,7 +42,7 @@ function downloadFile(f, l)
     print(f .. ": done updating.")
 end
 
-downloadFile("startup", "https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/spawmon/startup.lua")
+downloadFile("startup", "https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/spawnmon/startup.lua")
 downloadFile("json", "https://raw.githubusercontent.com/rxi/json.lua/master/json.lua")
 downloadFile("main", "https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/spawnmon/main.lua")
 downloadFile("utils", "https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/utils.lua")
