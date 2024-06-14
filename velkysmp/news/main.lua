@@ -27,7 +27,6 @@ local newsJson = json.decode(news1)
 local monWidth, monHeight = mon.getSize()
 local maxWidth = 0
 local currentPos = monWidth
-local tick = 0
 
 mon.setTextScale(1.5)
 
@@ -50,14 +49,11 @@ while true do
     os.queueEvent("tick")
     evt, p1, p2, p3, p4, p5 = os.pullEventRaw()
 
-    tick = tick + 1
-    if tick > 100 then
-        tick = 0
-        currentPos = currentPos + 1
-        if currentPos > maxWidth then
-            currentPos = monWidth
-        end
-
-        renderDisplay()
+    currentPos = currentPos + 1
+    if currentPos > maxWidth then
+        currentPos = monWidth
     end
+
+    renderDisplay()
+    os.sleep(0.2)
 end
