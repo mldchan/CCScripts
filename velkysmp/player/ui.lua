@@ -24,6 +24,7 @@ end
 per = peripheral.wrap("back")
 
 canvas = per.canvas()
+canvas.clear()
 
 width, height = canvas.getSize()
 
