@@ -45,7 +45,6 @@ while true do
 			elseif message.type == "verifyticket" then
 				local data = json.decode(readFile("data.json"))
 				if data ~= nil then
-					data = json.decode(data)
 					for k, v in ipairs(data) do
 						if v.ticket == message.ticket then
 							rednet.send(computer, json.encode({ type = "ticketverified", name = v.name }), "Akatsuki")
