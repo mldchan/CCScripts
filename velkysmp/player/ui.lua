@@ -26,9 +26,7 @@ per = peripheral.wrap("back")
 canvas = per.canvas()
 canvas.clear()
 
-width, height = canvas.getSize()
-
-timeText = canvas.addText({x = width - 76, y = 1}, getIgt())
+timeText = canvas.addText({x = 1, y = 1}, getIgt())
 
 
 while true do
