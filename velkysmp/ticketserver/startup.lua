@@ -12,8 +12,6 @@
 -- You should have received a copy of the GNU General Public License along with this program. 
 -- If not, see <https://www.gnu.org/licenses/>.
 
-
-
 fs.delete("startup.lua")
 shell.run("wget https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/ticketserver/startup.lua startup.lua")
 fs.delete("json.lua")
