@@ -13,9 +13,6 @@
 -- If not, see <https://www.gnu.org/licenses/>.
 
 
-MODEM_SIDE = "left"
-
-require("input")
 require("aeslua")
 require("utils")
 local json = require("json")
@@ -24,8 +21,9 @@ local config = json.decode(readFile("config.json"))
 local ticket = prompt("Ticket number: ")
 
 local message = json.encode({type = "verifyticket", ticket = tonumber(ticket)})
+message = encrypt(config.aesPassword, message)
 
-rednet.open(MODEM_SIDE)
+rednet.open(config.modemSide)
 
 local host = rednet.lookup("Akatsuki", "ticketserver")
 
