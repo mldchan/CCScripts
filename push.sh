@@ -1,6 +1,6 @@
 #!/bin/bash
 
-message="$(date)"
+message="Changes on $(date)"
 echo "Push message: $message"
 
 git add .

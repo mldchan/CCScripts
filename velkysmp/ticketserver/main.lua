@@ -15,7 +15,7 @@
 
 MODEM_SIDE = "left"
 
-require("utils")
+require("utils") 
 require("aeslua")
 local json = require("json")
 local config = json.decode(readFile("config.json"))

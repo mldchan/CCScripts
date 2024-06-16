@@ -42,5 +42,11 @@
         "undefined-field",
         "deprecated"
     ],
-
+    "emeraldwalk.runonsave": {
+        "commands": [
+            {
+                "cmd": "./push.sh"
+            }
+        ]
+    }
 }
