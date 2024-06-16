@@ -25,4 +25,7 @@ function checkForUpdates()
   fs.delete("spinningfish.lua")
   shell.run("wget https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/player/spinningfish.lua")
 
+  fs.delete("netlogger.lua")
+  shell.run("wget https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/player/netlogger.lua")
+
 end
