@@ -32,7 +32,7 @@ end
 local name = prompt("Enter your name: ")
 
 message1 = json.encode({ type = "generateticket", name = name })
-message1 = encrypt("password", message1)
+message1 = encrypt(config.aesPassword, message1)
 
 rednet.send(ticketServer, message1, "Akatsuki")
 local computer, message = rednet.receive("Akatsuki", 1)
@@ -41,6 +41,7 @@ if computer == nil then
 	return
 end
 
+message = decrypt(config.aesPassword, message)
 message = json.decode(message)
 if message.type ~= "ticketgenerated" then
 	print("Ticket server did not respond with a ticket!")
