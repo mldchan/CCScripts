@@ -54,6 +54,6 @@ shell.run(bg .. " /netlogger.lua")
 con.tell("[Started] Net logger")
 
 -- UI
-con.tell("[Starting] Net logger")
-shell.run(bg .. " /netlogger.lua")
-con.tell("[Started] Net logger")
+con.tell("[Starting] User interface")
+shell.run(bg .. " /ui.lua")
+con.tell("[Started] User interface")
