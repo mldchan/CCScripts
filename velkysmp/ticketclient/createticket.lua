@@ -15,7 +15,6 @@
 
 MODEM_SIDE = "left"
 
-require("input")
 require("aeslua")
 require("utils")
 local json = require("json")
