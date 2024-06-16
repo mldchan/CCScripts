@@ -33,8 +33,12 @@ con.tell("Checking for updates was finished.")
 local bg = shell.resolveProgram("bg")
 print("bg is", bg)
 
--- Meowing
+-- Say starting messages
 con.tell("[Starting] Automatic meowing")
+con.tell("[Starting] Net logger")
+con.tell("[Starting] User interface")
+
+-- Meowing
 shell.run(bg .. " /meow.lua")
 con.tell("[Started] Automatic meowing")
 
@@ -49,11 +53,9 @@ con.tell("[Started] Automatic meowing")
 -- con.tell("[Started] Spinning fish")
 
 -- Net logger
-con.tell("[Starting] Net logger")
 shell.run(bg .. " /netlogger.lua")
 con.tell("[Started] Net logger")
 
 -- UI
-con.tell("[Starting] User interface")
 shell.run(bg .. " /ui.lua")
 con.tell("[Started] User interface")
