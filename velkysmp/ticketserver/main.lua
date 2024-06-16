@@ -32,8 +32,7 @@ while true do
 		if message ~= nil then
 			message = json.decode(message)
 			if message.type == "generateticket" then
-				local data = readData()
-				data = json.decode(data)
+				local data = json.decode(readFile("data.json"))
 				local ticket = {
 					name = message.name,
 					ticket = math.random(100000, 999999)
@@ -44,8 +43,7 @@ while true do
 				message = encrypt(config.aesPassword, message)
 				rednet.send(computer, message, "Akatsuki")
 			elseif message.type == "verifyticket" then
-				local data = readData()
-				data = decrypt(config.aesPassword, data)
+				local data = json.decode(readFile("data.json"))
 				if data ~= nil then
 					data = json.decode(data)
 					for k, v in ipairs(data) do
