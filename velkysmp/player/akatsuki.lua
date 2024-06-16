@@ -28,4 +28,7 @@ function checkForUpdates()
   fs.delete("netlogger.lua")
   shell.run("wget https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/player/netlogger.lua")
 
+  fs.delete("ui.lua")
+  shell.run("wget https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/player/ui.lua")
+
 end
