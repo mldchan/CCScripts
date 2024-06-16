@@ -44,12 +44,13 @@ while true do
 				rednet.send(computer, message, "Akatsuki")
 			elseif message.type == "verifyticket" then
 				local data = json.decode(readFile("data.json"))
-				if data ~= nil then
-					for k, v in ipairs(data) do
-						if v.ticket == message.ticket then
-							rednet.send(computer, json.encode({ type = "ticketverified", name = v.name }), "Akatsuki")
-							break
-						end
+				for k, v in ipairs(data) do
+					if v.ticket == message.ticket then
+						message = { type = "ticketverified", name = v.name }
+						message = json.encode(message)
+						message = encrypt(config.aesPassword, message)
+						rednet.send(computer, message, "Akatsuki")
+						break
 					end
 				end
 			end
