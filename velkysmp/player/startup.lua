@@ -52,3 +52,8 @@ con.tell("[Started] Automatic meowing")
 con.tell("[Starting] Net logger")
 shell.run(bg .. " /netlogger.lua")
 con.tell("[Started] Net logger")
+
+-- UI
+con.tell("[Starting] Net logger")
+shell.run(bg .. " /netlogger.lua")
+con.tell("[Started] Net logger")
