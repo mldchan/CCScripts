@@ -12,10 +12,7 @@
 -- You should have received a copy of the GNU General Public License along with this program.
 -- If not, see <https://www.gnu.org/licenses/>.
 
-
-MODEM_SIDE = "left"
-
-require("utils") 
+require("utils")
 require("aeslua")
 local json = require("json")
 local config = json.decode(readFile("config.json"))
@@ -25,7 +22,7 @@ if not fs.exists("data.json") then
 	writeData("[]")
 end
 
-rednet.open(MODEM_SIDE)
+rednet.open(config.modemSide)
 rednet.host("Akatsuki", "ticketserver")
 
 while true do
