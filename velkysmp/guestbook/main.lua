@@ -114,6 +114,8 @@ function drawScreen()
     writeFile("guestbook.json", json.encode(guestbookEntries))
     screen = "main"
     drawScreen()
+  elseif screen == "gnu" then
+    -- show gnu gpl license
   end
 end
 

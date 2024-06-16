@@ -16,7 +16,10 @@
 MODEM_SIDE = "left"
 
 require("input")
+require("aeslua")
+require("utils")
 local json = require("json")
+local config = json.decode(readFile("config.json"))
 
 local ticket = prompt("Ticket number: ")
 
@@ -40,6 +43,7 @@ if computer == nil then
     return
 end
 
+message = decrypt(config.aesPassword, message)
 message = json.decode(message)
 
 print("The ticket is valid and belongs to " .. tostring(message.name))
