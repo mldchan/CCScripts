@@ -19,7 +19,7 @@ local config = json.decode(readFile("config.json"))
 
 if not fs.exists("data.json") then
 	print("Creating data.json")
-	writeData("[]")
+	json.encode({})
 end
 
 rednet.open(config.modemSide)
@@ -38,7 +38,7 @@ while true do
 					ticket = math.random(100000, 999999)
 				}
 				table.insert(data, ticket)
-				writeData(json.encode(data))
+				writeFile("data.json", json.encode(data))
 				message = json.encode({ type = "ticketgenerated", ticket = ticket.ticket })
 				message = encrypt(config.aesPassword, message)
 				rednet.send(computer, message, "Akatsuki")
