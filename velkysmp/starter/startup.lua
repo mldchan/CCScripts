@@ -45,6 +45,33 @@ downloadFile("startup", "https://raw.githubusercontent.com/Akatsuki2555/CCScript
 downloadFile("json", "https://raw.githubusercontent.com/rxi/json.lua/master/json.lua")
 downloadFile("utils", "https://raw.githubusercontent.com/Akatsuki2555/CCScripts/main/velkysmp/utils.lua")
 
+local function scanNetwork()
+    print("Scanning network for offline computers...")
+    
+    local computers = {}
+    
+    -- Get a list of all connected peripherals
+    local peripherals = peripheral.getNames()
+    
+    -- Filter out the computers
+    for _, peripheralName in ipairs(peripherals) do
+        if peripheral.getType(peripheralName) == "computer" then
+            table.insert(computers, peripheral.wrap(peripheralName))
+        end
+    end
+    
+    -- Check the status of each computer
+    for _, computer in ipairs(computers) do
+        if not computer.isOn() then
+            print("Computer offline: " .. computer.getID())
+        end
+    end
+    
+    print("Network scan complete.")
+end
+
+scanNetwork()
+
 local function turnOnAllComputers()
     print("Turning on all computers...")
     
