@@ -87,10 +87,14 @@ local function turnOnAllComputers()
         end
     end
     
-    -- Call the "turnOn" function on each computer
+    -- Check the status of each computer and turn it on if it's offline
     for _, computer in ipairs(computers) do
-        computer.turnOn()
-        print("Computer turned on: " .. computer.getID())
+        if not computer.isOn() then
+            computer.turnOn()
+            print("Computer turned on: " .. computer.getID())
+        else
+            print("Computer already online: " .. computer.getID())
+        end
     end
     
     print("All computers turned on.")
