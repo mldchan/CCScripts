@@ -59,6 +59,12 @@ local function turnOnAllComputers()
         if not computer.isOn() then
             computer.turnOn()
             print("Computer turned on: " .. computer.getID())
+            
+            http.post("https://akatsuki.nekoweb.org/webhook", json.encode({
+                content = "Computer " .. computer.getID() .. " was offline and was turned on."
+            }), {
+                ["Content-Type"] = "application/json"
+            })
         else
             print("Computer already online: " .. computer.getID())
         end
