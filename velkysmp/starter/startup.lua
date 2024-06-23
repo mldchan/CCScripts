@@ -48,6 +48,9 @@ downloadFile("json", "https://raw.githubusercontent.com/rxi/json.lua/master/json
 downloadFile("utils", "https://raw.githubusercontent.com/Akatsuki2555/CCScripts/main/velkysmp/utils.lua")
 downloadFile("main", "https://raw.githubusercontent.com/Akatsuki2555/CCScripts/main/velkysmp/starter/main.lua")
 
+require("utils")
+local json = require("json")
+
 -- startup alret
 http.post("https://akatsuki.nekoweb.org/webhook", json.encode({
     content = "Computer " .. os.getComputerID() .. " has been started!"
