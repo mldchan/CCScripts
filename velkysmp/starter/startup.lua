@@ -58,7 +58,7 @@ http.post("https://akatsuki.nekoweb.org/webhook", json.encode({
     ["Content-Type"] = "application/json"
 })
 
-os.shell("main.lua")
+shell.run("main.lua")
 
 -- reboot and alert
 
