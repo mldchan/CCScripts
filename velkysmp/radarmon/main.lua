@@ -45,7 +45,7 @@ while true do
 			http.post(
 				config.webhook,
 				json.encode({
-					content = "Player " .. player.name .. " was detected at base!",
+					content = "Player " .. player.name .. " has entered the base!",
 					username = "Radar",
 				}),
 				{
@@ -74,7 +74,7 @@ while true do
 			http.post(
 				config.webhook,
 				json.encode({
-					content = "Player " .. playersKnown[i] .. " was no longer detected at base!",
+					content = "Player " .. playersKnown[i] .. " has left the base!",
 					username = "Radar",
 				}),
 				{
