@@ -37,10 +37,10 @@ function downloadFile(f, url)
     print(f..": done updating.")
 end
 
-downloadFile("startup", "https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/news/startup.lua")
+downloadFile("startup", "https://raw.githubusercontent.com/Akatsuki2555/CCScripts/main/velkysmp/news/startup.lua")
 downloadFile("json", "https://raw.githubusercontent.com/rxi/json.lua/master/json.lua")
-downloadFile("main", "https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/news/main.lua")
-downloadFile("utils", "https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/utils.lua")
+downloadFile("main", "https://raw.githubusercontent.com/Akatsuki2555/CCScripts/main/velkysmp/news/main.lua")
+downloadFile("utils", "https://raw.githubusercontent.com/Akatsuki2555/CCScripts/main/velkysmp/utils.lua")
 
 -- startup alret
 

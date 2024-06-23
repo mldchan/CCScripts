@@ -13,7 +13,7 @@
 -- If not, see <https://www.gnu.org/licenses/>.
 
 
--- wget run https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/spawnmon/startup.lua
+-- wget run https://raw.githubusercontent.com/Akatsuki2555/CCScripts/main/velkysmp/spawnmon/startup.lua
 
 function downloadFile(f, l)
     print(f .. ": downloading update..")
@@ -42,10 +42,10 @@ function downloadFile(f, l)
     print(f .. ": done updating.")
 end
 
-downloadFile("startup", "https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/spawnmon/startup.lua")
+downloadFile("startup", "https://raw.githubusercontent.com/Akatsuki2555/CCScripts/main/velkysmp/spawnmon/startup.lua")
 downloadFile("json", "https://raw.githubusercontent.com/rxi/json.lua/master/json.lua")
-downloadFile("main", "https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/spawnmon/main.lua")
-downloadFile("utils", "https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/utils.lua")
+downloadFile("main", "https://raw.githubusercontent.com/Akatsuki2555/CCScripts/main/velkysmp/spawnmon/main.lua")
+downloadFile("utils", "https://raw.githubusercontent.com/Akatsuki2555/CCScripts/main/velkysmp/utils.lua")
 
 -- startup alret
 
