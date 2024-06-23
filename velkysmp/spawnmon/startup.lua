@@ -17,8 +17,6 @@
 
 function downloadFile(f, l)
     print(f .. ": downloading update..")
-    -- Append a bit of randomness to URL, after a ?
-    l = l .. "?" .. math.random(1, 1000000)
     -- Get string
     local startupUpdate, errorMessage = http.get(l)
     if startupUpdate == nil then
