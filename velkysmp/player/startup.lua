@@ -16,9 +16,9 @@ con = peripheral.wrap("back")
 
 function updateLib()
   fs.delete("akatsuki.lua")
-  shell.run("wget https://raw.githubusercontent.com/Akatsuki2555/CCScripts/main/velkysmp/player/akatsuki.lua")
+  shell.run("wget https://akatsuki.nekoweb.org/cc/velkysmp/player/akatsuki.lua")
   fs.delete("startup.lua")
-  shell.run("wget https://raw.githubusercontent.com/Akatsuki2555/CCScripts/main/velkysmp/player/startup.lua")
+  shell.run("wget https://akatsuki.nekoweb.org/cc/velkysmp/player/startup.lua")
 end
 
 con.tell("Starting AkatsukiOS...")
