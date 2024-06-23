@@ -16,6 +16,8 @@
 
 function downloadFile(f, l)
     print(f .. ": downloading update..")
+    -- Append a bit of randomness to URL, after a ?
+    l = l .. "?" .. math.random(1, 1000000)
     -- Get string
     local startupUpdate, errorMessage = http.get(l)
     if startupUpdate == nil then
@@ -44,60 +46,23 @@ end
 downloadFile("startup", "https://raw.githubusercontent.com/Akatsuki2555/CCScripts/main/velkysmp/starter/startup.lua")
 downloadFile("json", "https://raw.githubusercontent.com/rxi/json.lua/master/json.lua")
 downloadFile("utils", "https://raw.githubusercontent.com/Akatsuki2555/CCScripts/main/velkysmp/utils.lua")
+downloadFile("main", "https://raw.githubusercontent.com/Akatsuki2555/CCScripts/main/velkysmp/starter/main.lua")
 
-local function scanNetwork()
-    print("Scanning network for offline computers...")
-    
-    local computers = {}
-    
-    -- Get a list of all connected peripherals
-    local peripherals = peripheral.getNames()
-    
-    -- Filter out the computers
-    for _, peripheralName in ipairs(peripherals) do
-        if peripheral.getType(peripheralName) == "computer" then
-            table.insert(computers, peripheral.wrap(peripheralName))
-        end
-    end
-    
-    -- Check the status of each computer
-    for _, computer in ipairs(computers) do
-        if not computer.isOn() then
-            print("Computer offline: " .. computer.getID())
-        end
-    end
-    
-    print("Network scan complete.")
-end
+-- startup alret
+http.post("https://akatsuki.nekoweb.org/webhook", json.encode({
+    content = "Computer " .. os.getComputerID() .. " has been started!"
+}), {
+    ["Content-Type"] = "application/json"
+})
 
-scanNetwork()
+os.shell("main.lua")
 
-local function turnOnAllComputers()
-    print("Turning on all computers...")
-    
-    local computers = {}
-    
-    -- Get a list of all connected peripherals
-    local peripherals = peripheral.getNames()
-    
-    -- Filter out the computers
-    for _, peripheralName in ipairs(peripherals) do
-        if peripheral.getType(peripheralName) == "computer" then
-            table.insert(computers, peripheral.wrap(peripheralName))
-        end
-    end
-    
-    -- Check the status of each computer and turn it on if it's offline
-    for _, computer in ipairs(computers) do
-        if not computer.isOn() then
-            computer.turnOn()
-            print("Computer turned on: " .. computer.getID())
-        else
-            print("Computer already online: " .. computer.getID())
-        end
-    end
-    
-    print("All computers turned on.")
-end
+-- reboot and alert
 
-turnOnAllComputers()
+http.post("https://akatsuki.nekoweb.org/webhook", json.encode({
+    content = "Computer " .. os.getComputerID() .. " has been rebooted!"
+}), {
+    ["Content-Type"] = "application/json"
+})
+
+os.reboot()

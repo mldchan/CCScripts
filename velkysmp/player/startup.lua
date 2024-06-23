@@ -30,9 +30,6 @@ con.tell("Checking for updates and downloading them...")
 checkForUpdates()
 con.tell("Checking for updates was finished.")
 
-local bg = shell.resolveProgram("bg")
-print("bg is", bg)
-
 -- Say starting messages
 con.tell("[Starting] Automatic meowing")
 con.tell("[Starting] Net logger")
