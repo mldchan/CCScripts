@@ -31,6 +31,7 @@ for file_path in files:
     download_url = f"https://akatsuki.nekoweb.org/{remote_path_file}"
     local_file_path = os.path.join(root_path, relative_path)
 
+    remote_file_content = ""
     # Download the file
     try:
         response = requests.get(download_url)
@@ -39,7 +40,6 @@ for file_path in files:
     except requests.exceptions.HTTPError as e:
         if e.response.status_code == 404:
             print(f"File '{relative_path}' not found on the server.")
-            continue
         else:
             raise
 
@@ -48,7 +48,6 @@ for file_path in files:
         local_file_content = local_file.read()
     
     if remote_file_content.encode() == local_file_content:
-        print(f"File '{relative_path}' is up to date.")
         continue
     else:
         print(f"File '{relative_path}' needs to be updated.")
@@ -66,6 +65,4 @@ for file_path in files:
 
     # Check the upload response
     if upload_response.status_code == 200:
-        print(f"File '{relative_path}' uploaded successfully.")
-    else:
-        print(f"Failed to upload file '{relative_path}'")
+        print(f"File '{relative_path}' updated.")
