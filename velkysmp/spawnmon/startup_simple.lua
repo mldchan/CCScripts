@@ -21,7 +21,7 @@ print("Checking updates...")
 function downloadFile()
     print("Startup: downloading update..")
     -- Get string
-    local startupUpdate = http.get("https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/spawnmon/startup_simple.lua")
+    local startupUpdate = http.get("https://raw.githubusercontent.com/Akatsuki2555/CCScripts/main/velkysmp/spawnmon/startup_simple.lua")
     local startusCode, statusMessage = startupUpdate.getResponseCode()
     if startusCode ~= 200 then
         printError("Server responded with message " .. statusMessage)
@@ -46,7 +46,7 @@ downloadFile()
 fs.delete("json.lua")
 shell.run("wget https://raw.githubusercontent.com/rxi/json.lua/master/json.lua json.lua")
 fs.delete("main.lua")
-shell.run("wget https://codeberg.org/Akatsuki/ComputerCraftScripts/raw/branch/main/velkysmp/spawnmon/main_simple.lua main.lua")
+shell.run("wget https://raw.githubusercontent.com/Akatsuki2555/CCScripts/main/velkysmp/spawnmon/main_simple.lua main.lua")
 
 term.clear()
 
