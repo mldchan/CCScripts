@@ -51,8 +51,10 @@ while true do
 
     currentPos = currentPos + 1
     if currentPos > maxWidth then
-        mon.setTextScale(4.5)
+        mon.setTextScale(3)
         mon.setCursorPos(1, 1)
+        mon.write("Make sure to visit")
+        mon.setCursorPos(1, 2)
         mon.write("Akatsuki.nekoweb.org")
         os.sleep(5)
         mon.clear()
