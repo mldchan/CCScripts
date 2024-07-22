@@ -42,6 +42,42 @@ downloadFile("main", "https://akatsuki.nekoweb.org/cc/velkysmp/guestbook/main.lu
 downloadFile("utils", "https://akatsuki.nekoweb.org/cc/velkysmp/utils.lua")
 downloadFile("keyboard", "https://akatsuki.nekoweb.org/cc/velkysmp/guestbook/keyboard.lua")
 
+local function turnOnAllComputers()
+    print("Turning on all computers...")
+    
+    local computers = {}
+    
+    -- Get a list of all connected peripherals
+    local peripherals = peripheral.getNames()
+    
+    -- Filter out the computers
+    for _, peripheralName in ipairs(peripherals) do
+        if peripheral.getType(peripheralName) == "computer" then
+            table.insert(computers, peripheral.wrap(peripheralName))
+        end
+    end
+    
+    -- Check the status of each computer and turn it on if it's offline
+    for _, computer in ipairs(computers) do
+        if not computer.isOn() then
+            computer.turnOn()
+            print("Computer turned on: " .. computer.getID())
+            
+            http.post("https://akatsuki.nekoweb.org/webhook", json.encode({
+                content = "Computer " .. computer.getID() .. " was offline and was turned on."
+            }), {
+                ["Content-Type"] = "application/json"
+            })
+        else
+            print("Computer already online: " .. computer.getID())
+        end
+    end
+    
+    print("All computers turned on.")
+end
+
+turnOnAllComputers()
+
 -- startup alret
 
 require("utils")

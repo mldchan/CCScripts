@@ -36,10 +36,11 @@ function downloadFile(f, url)
     print(f..": done updating.")
 end
 
-downloadFile("startup", "https://akatsuki.nekoweb.org/cc/velkysmp/radarmon/startup.lua")
+downloadFile("startup", "https://akatsuki.nekoweb.org/cc/velkysmp/guestbook_cloud/startup.lua")
 downloadFile("json", "https://raw.githubusercontent.com/rxi/json.lua/master/json.lua")
-downloadFile("main", "https://akatsuki.nekoweb.org/cc/velkysmp/radarmon/main.lua")
+downloadFile("main", "https://akatsuki.nekoweb.org/cc/velkysmp/guestbook_cloud/main.lua")
 downloadFile("utils", "https://akatsuki.nekoweb.org/cc/velkysmp/utils.lua")
+downloadFile("keyboard", "https://akatsuki.nekoweb.org/cc/velkysmp/guestbook_cloud/keyboard.lua")
 
 local function turnOnAllComputers()
     print("Turning on all computers...")
@@ -62,7 +63,7 @@ local function turnOnAllComputers()
             computer.turnOn()
             print("Computer turned on: " .. computer.getID())
             
-            http.post("https://akatsuki.nekoweb.org/webhook", json.encode({
+            http.post(config.webhook, json.encode({
                 content = "Computer " .. computer.getID() .. " was offline and was turned on."
             }), {
                 ["Content-Type"] = "application/json"
@@ -75,7 +76,6 @@ local function turnOnAllComputers()
     print("All computers turned on.")
 end
 
-turnOnAllComputers()
 
 -- startup alret
 
@@ -83,22 +83,25 @@ require("utils")
 local json = require("json")
 local config = json.decode(readFile("config.json"))
 
+turnOnAllComputers()
+
 http.post(config.webhook, json.encode({
-    content = "Computer " .. os.getComputerID() .. " (Radar computer) has been started!"
+    content = "Computer " .. os.getComputerID() .. " has been started!"
 }), {
     ["Content-Type"] = "application/json"
 })
 
 
+peripheral.call("back", "setTextScale", 1)
 
 shell.run("main.lua")
 
 prettyWrite(term, "Nice try. I see you.")
 
-
-http.post(config.webhook, json.encode({content = "Computer " .. os.getComputerID() .. " (Radar computer) had it's program terminated! <@" .. config.userId .. ">"
+http.post(config.webhook, json.encode({
+    content = "Computer " .. os.getComputerID() .. " had it's program terminated! <@" .. config.userId .. ">"
 }), {
-   ["Content-Type"] = "application/json"
+    ["Content-Type"] = "application/json"
 })
 
 prettyWrite(term, "Akatsuki was alerted. Please don't try this again.")

@@ -34,9 +34,10 @@ con.tell("Checking for updates was finished.")
 con.tell("[Starting] Automatic meowing")
 con.tell("[Starting] Net logger")
 con.tell("[Starting] User interface")
+con.tell("[Starting] Base notifications")
 
 -- Meowing
-shell.run(bg .. " /meow.lua")
+shell.run("bg /meow.lua")
 con.tell("[Started] Automatic meowing")
 
 -- Entity display
@@ -50,9 +51,13 @@ con.tell("[Started] Automatic meowing")
 -- con.tell("[Started] Spinning fish")
 
 -- Net logger
-shell.run(bg .. " /netlogger.lua")
+shell.run("bg /netlogger.lua")
 con.tell("[Started] Net logger")
 
 -- UI
-shell.run(bg .. " /ui.lua")
+shell.run("bg /ui.lua")
 con.tell("[Started] User interface")
+
+-- Base notifications
+shell.run("bg /basenotifs.lua")
+con.tell("[Started] Base notifications")

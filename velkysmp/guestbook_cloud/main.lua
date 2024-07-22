@@ -15,12 +15,11 @@ local config = json.decode(readFile("config.json"))
 
 local guestbookEntries = {}
 
-if fs.exists("guestbook.json") then
-  guestbookEntries = json.decode(readFile("guestbook.json"))
-end
+local request = http.get("http://localhost:3002/api/velkysmpguestbook/get")
+guestbookEntries = json.decode(request.readAll())
+request.close()
 
 local screen = "main"
-local termScreen = "idle"
 
 local mon = peripheral.wrap(config.side)
 local mon_width, mon_height = mon.getSize()
@@ -109,9 +108,19 @@ function drawScreen()
     os.unloadAPI("keyboard")
     mon.clear()
 
+    mon.setCursorPos(2, 2)
+    mon.write("Sending your entry to Akatsuki's API server...")
     table.insert(guestbookEntries, { title = playerName, content = content })
 
-    writeFile("guestbook.json", json.encode(guestbookEntries))
+    local request = http.post({
+      url = "http://localhost:3002/api/velkysmpguestbook/add",
+      body = json.encode({ title = playerName, content = content }),
+      headers = { ["Content-Type"] = "application/json" }
+    })
+    request.close()
+
+    mon.clear()
+
     screen = "main"
     drawScreen()
   elseif screen == "gnu" then
@@ -119,60 +128,7 @@ function drawScreen()
   end
 end
 
-function drawTerm()
-  term.clear()
-
-  if termScreen == "idle" then
-    term.setCursorPos(2, 2)
-    term.write("[ Manage ]")
-  elseif termScreen == "password" then
-    term.setCursorPos(2, 2)
-    prettyWrite(term, "To manage this guestbook, please enter the password.")
-    local password = read("*")
-
-    if password == config.password then
-      termScreen = "management"
-      drawTerm()
-    else
-      termScreen = "idle"
-
-      term.setCursorPos(2, 4)
-      term.setTextColor(colors.red)
-      prettyWrite(term, "Incorrect password.")
-      term.setTextColor(colors.white)
-      drawTerm()
-    end
-  elseif termScreen == "management" then
-    term.setCursorPos(2, 2)
-    prettyWrite(term, "Guestbook Management")
-
-    local entryTitle = guestbookEntries[managementIndex].title
-    local entryContent = guestbookEntries[managementIndex].content
-    term.setCursorPos(2, 4)
-    prettyWrite(term, "Title: " .. entryTitle)
-    term.setCursorPos(2, 5)
-    prettyWrite(term, "Content: " .. entryContent)
-
-    term.setCursorPos(2, 7)
-    prettyWrite(term, "[ Delete ]")
-
-    if managementIndex ~= 1 then
-      term.setCursorPos(2, 9)
-      prettyWrite(term, "[ Previous ]")
-    end
-
-    if managementIndex ~= #guestbookEntries then
-      term.setCursorPos(15, 9)
-      prettyWrite(term, "[ Next ]")
-    end
-
-    term.setCursorPos(2, 11)
-    term.write("[ Log out ]")
-  end
-end
-
 drawScreen()
-drawTerm()
 
 while true do
   os.queueEvent("tick")
@@ -182,40 +138,6 @@ while true do
       if p2 > 1 and p2 < 25 and p3 == mon_height - 1 then
         screen = "sign"
         drawScreen()
-      end
-    end
-  end
-
-  if event == "mouse_click" then
-    if termScreen == "idle" then
-      if p2 > 1 and p2 < 13 and p3 == 2 then
-        termScreen = "password"
-        drawTerm()
-      end
-    elseif termScreen == "management" then
-      if p2 > 1 and p2 < 13 and p3 == 7 then
-        table.remove(guestbookEntries, managementIndex)
-        if #guestbookEntries == managementIndex then
-          managementIndex = managementIndex - 1
-        end
-        writeFile("guestbook.json", json.encode(guestbookEntries))
-        drawTerm()
-      end
-
-      if p2 > 1 and p2 < 14 and p3 == 9 and managementIndex ~= 1 then
-        managementIndex = managementIndex - 1
-        drawTerm()
-      end
-
-      if p2 > 14 and p2 < 22 and p3 == 9 and managementIndex ~=
-          #guestbookEntries then
-        managementIndex = managementIndex + 1
-        drawTerm()
-      end
-
-      if p2 > 1 and p2 < 13 and p3 == 11 then
-        termScreen = "idle"
-        drawTerm()
       end
     end
   end

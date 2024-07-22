@@ -52,10 +52,10 @@ while true do
 					["Content-Type"] = "application/json",
 				}
 			)
-      rednet.broadcast(encrypt(config.password, json.encode({
-        action = "enter",
-        player = player.name
-      })))
+			rednet.broadcast(encrypt(config.password, json.encode({
+				action = "enter",
+				player = player.name
+			})))
 		end
 	end
 
@@ -81,10 +81,10 @@ while true do
 					["Content-Type"] = "application/json",
 				}
 			)
-      rednet.broadcast(encrypt(config.password, json.encode({
-        action = "leave",
-        player = player.name
-      })))
+			rednet.broadcast(encrypt(config.password, json.encode({
+				action = "leave",
+				player = playersKnown[i]
+			})))
 			table.remove(playersKnown, i)
 		end
 	end
