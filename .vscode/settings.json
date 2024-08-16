@@ -45,7 +45,8 @@
     "emeraldwalk.runonsave": {
         "commands": [
             {
-                "cmd": "./push.sh"
+                "match": ".*\\.lua$",
+                "cmd": ".venv\\Scripts\\python.exe Update.py"
             }
         ]
     }
