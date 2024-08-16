@@ -1,6 +1,7 @@
 import os
 import json
 import requests
+import threading
 
 # Get the script's directory
 script_path = os.path.dirname(os.path.abspath(__file__))
@@ -24,7 +25,7 @@ for root, _, filenames in os.walk(root_path):
         if filename.endswith(".lua"):
             files.append(os.path.join(root, filename))
 
-for file_path in files:
+def process_file(file_path):
     relative_path = os.path.relpath(file_path, root_path).replace("\\", "/")
     remote_path_file = f"cc/{relative_path}"
     remote_path_dir = "/".join(remote_path_file.split("/")[:-1]) + "/"
@@ -46,9 +47,9 @@ for file_path in files:
     # Compare the file
     with open(local_file_path, "rb") as local_file:
         local_file_content = local_file.read()
-    
+
     if remote_file_content.encode() == local_file_content:
-        continue
+        return
     else:
         print(f"File '{relative_path}' needs to be updated.")
 
@@ -66,3 +67,16 @@ for file_path in files:
     # Check the upload response
     if upload_response.status_code == 200:
         print(f"File '{relative_path}' updated.")
+
+# Start a thread for each file
+threads = []
+for file_path in files:
+    thread = threading.Thread(target=process_file, args=(file_path,))
+    thread.start()
+    threads.append(thread)
+
+print(f"Running {len(threads)} threads...")
+
+# Wait for all threads to finish
+for thread in threads:
+    thread.join()
