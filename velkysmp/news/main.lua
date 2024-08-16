@@ -55,7 +55,7 @@ while true do
         mon.setCursorPos(1, 1)
         mon.write("Make sure to visit")
         mon.setCursorPos(1, 2)
-        mon.write("Akatsuki.nekoweb.org")
+        mon.write("akatsuki2555.is-a.dev!")
         os.sleep(5)
         mon.clear()
         mon.setCursorPos(1, 1)
