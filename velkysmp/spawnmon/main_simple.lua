@@ -89,7 +89,7 @@ function drawMainScreen()
     mon.setCursorPos(1, mon_height - 2)
     mon.write("Akatsuki2555's VelkySMP Status Monitor v" .. VERSION .. ": CC edition")
     mon.setCursorPos(1, mon_height - 1)
-    mon.write("Check her out on akatsuki.nekoweb.org and sign the guestbook at akatsuki.atabook.org!")
+    mon.write("Check her out on mldkyt.nekoweb.org and sign the guestbook at akatsuki.atabook.org!")
     mon.setCursorPos(1, mon_height)
     mon.write("The online version of this software is on velkysmp-mon.vercel.app")
 end

@@ -21,15 +21,16 @@ else:
 root_path = script_path
 files = []
 for root, _, filenames in os.walk(root_path):
+    if ".git" in root or ".vscode" in root or ".venv" in root:
+        continue
     for filename in filenames:
-        if filename.endswith(".lua"):
-            files.append(os.path.join(root, filename))
+        files.append(os.path.join(root, filename))
 
 def process_file(file_path):
     relative_path = os.path.relpath(file_path, root_path).replace("\\", "/")
     remote_path_file = f"cc/{relative_path}"
     remote_path_dir = "/".join(remote_path_file.split("/")[:-1]) + "/"
-    download_url = f"https://akatsuki.nekoweb.org/{remote_path_file}"
+    download_url = f"https://mldkyt.nekoweb.org/{remote_path_file}"
     local_file_path = os.path.join(root_path, relative_path)
 
     remote_file_content = ""

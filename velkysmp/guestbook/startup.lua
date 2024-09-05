@@ -36,11 +36,11 @@ function downloadFile(f, url)
     print(f..": done updating.")
 end
 
-downloadFile("startup", "https://akatsuki.nekoweb.org/cc/velkysmp/guestbook/startup.lua")
+downloadFile("startup", "https://mldkyt.nekoweb.org/cc/velkysmp/guestbook/startup.lua")
 downloadFile("json", "https://raw.githubusercontent.com/rxi/json.lua/master/json.lua")
-downloadFile("main", "https://akatsuki.nekoweb.org/cc/velkysmp/guestbook/main.lua")
-downloadFile("utils", "https://akatsuki.nekoweb.org/cc/velkysmp/utils.lua")
-downloadFile("keyboard", "https://akatsuki.nekoweb.org/cc/velkysmp/guestbook/keyboard.lua")
+downloadFile("main", "https://mldkyt.nekoweb.org/cc/velkysmp/guestbook/main.lua")
+downloadFile("utils", "https://mldkyt.nekoweb.org/cc/velkysmp/utils.lua")
+downloadFile("keyboard", "https://mldkyt.nekoweb.org/cc/velkysmp/guestbook/keyboard.lua")
 
 local function turnOnAllComputers()
     print("Turning on all computers...")
@@ -63,7 +63,7 @@ local function turnOnAllComputers()
             computer.turnOn()
             print("Computer turned on: " .. computer.getID())
             
-            http.post("https://akatsuki.nekoweb.org/webhook", json.encode({
+            http.post("https://mldkyt.nekoweb.org/webhook", json.encode({
                 content = "Computer " .. computer.getID() .. " was offline and was turned on."
             }), {
                 ["Content-Type"] = "application/json"

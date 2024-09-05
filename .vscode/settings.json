@@ -45,7 +45,7 @@
     "emeraldwalk.runonsave": {
         "commands": [
             {
-                "match": ".*\\.lua$",
+                "match": ".*\\.(lua|json)$",
                 "cmd": ".venv\\Scripts\\python.exe Update.py"
             }
         ]

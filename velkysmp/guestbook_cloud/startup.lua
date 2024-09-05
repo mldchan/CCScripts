@@ -36,11 +36,11 @@ function downloadFile(f, url)
     print(f..": done updating.")
 end
 
-downloadFile("startup", "https://akatsuki.nekoweb.org/cc/velkysmp/guestbook_cloud/startup.lua")
+downloadFile("startup", "https://mldkyt.nekoweb.org/cc/velkysmp/guestbook_cloud/startup.lua")
 downloadFile("json", "https://raw.githubusercontent.com/rxi/json.lua/master/json.lua")
-downloadFile("main", "https://akatsuki.nekoweb.org/cc/velkysmp/guestbook_cloud/main.lua")
-downloadFile("utils", "https://akatsuki.nekoweb.org/cc/velkysmp/utils.lua")
-downloadFile("keyboard", "https://akatsuki.nekoweb.org/cc/velkysmp/guestbook_cloud/keyboard.lua")
+downloadFile("main", "https://mldkyt.nekoweb.org/cc/velkysmp/guestbook_cloud/main.lua")
+downloadFile("utils", "https://mldkyt.nekoweb.org/cc/velkysmp/utils.lua")
+downloadFile("keyboard", "https://mldkyt.nekoweb.org/cc/velkysmp/guestbook_cloud/keyboard.lua")
 
 local function turnOnAllComputers()
     print("Turning on all computers...")
@@ -62,12 +62,6 @@ local function turnOnAllComputers()
         if not computer.isOn() then
             computer.turnOn()
             print("Computer turned on: " .. computer.getID())
-            
-            http.post(config.webhook, json.encode({
-                content = "Computer " .. computer.getID() .. " was offline and was turned on."
-            }), {
-                ["Content-Type"] = "application/json"
-            })
         else
             print("Computer already online: " .. computer.getID())
         end

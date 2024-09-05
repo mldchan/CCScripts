@@ -12,7 +12,7 @@
 -- You should have received a copy of the GNU General Public License along with this program. 
 -- If not, see <https://www.gnu.org/licenses/>.
 
--- wget run https://akatsuki.nekoweb.org/cc/velkysmp/download.lua
+-- wget run https://mldkyt.nekoweb.org/cc/velkysmp/download.lua
 
 write("What? ")
 local what = read()
@@ -22,5 +22,5 @@ if what == "encryption" then
 elseif what == "json" then
 	shell.run("wget https://raw.githubusercontent.com/rxi/json.lua/master/json.lua json.lua")
 elseif what == "utils" then
-  shell.run("wget https://akatsuki.nekoweb.org/cc/velkysmp/utils.lua utils.lua")
+  shell.run("wget https://mldkyt.nekoweb.org/cc/velkysmp/utils.lua utils.lua")
 end

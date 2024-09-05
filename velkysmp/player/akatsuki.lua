@@ -14,25 +14,25 @@
 
 function checkForUpdates()
   fs.delete("entdisplay.lua")
-  shell.run("wget https://akatsuki.nekoweb.org/cc/velkysmp/player/entdisplay.lua")
+  shell.run("wget https://mldkyt.nekoweb.org/cc/velkysmp/player/entdisplay.lua")
 
   fs.delete("entsense.lua")
-  shell.run("wget https://akatsuki.nekoweb.org/cc/velkysmp/player/entsense.lua")
+  shell.run("wget https://mldkyt.nekoweb.org/cc/velkysmp/player/entsense.lua")
 
   fs.delete("meow.lua")
-  shell.run("wget https://akatsuki.nekoweb.org/cc/velkysmp/player/meow.lua")
+  shell.run("wget https://mldkyt.nekoweb.org/cc/velkysmp/player/meow.lua")
 
   fs.delete("spinningfish.lua")
-  shell.run("wget https://akatsuki.nekoweb.org/cc/velkysmp/player/spinningfish.lua")
+  shell.run("wget https://mldkyt.nekoweb.org/cc/velkysmp/player/spinningfish.lua")
 
   fs.delete("netlogger.lua")
-  shell.run("wget https://akatsuki.nekoweb.org/cc/velkysmp/player/netlogger.lua")
+  shell.run("wget https://mldkyt.nekoweb.org/cc/velkysmp/player/netlogger.lua")
 
   fs.delete("ui.lua")
-  shell.run("wget https://akatsuki.nekoweb.org/cc/velkysmp/player/ui.lua")
+  shell.run("wget https://mldkyt.nekoweb.org/cc/velkysmp/player/ui.lua")
 
   fs.delete("basenotifs.lua")
-  shell.run("wget https://akatsuki.nekoweb.org/cc/velkysmp/player/basenotifs.lua")
+  shell.run("wget https://mldkyt.nekoweb.org/cc/velkysmp/player/basenotifs.lua")
 
   fs.delete("aeslua.lua")
   shell.run("wget https://gist.githubusercontent.com/perara/77b82012bdd2a702c98a714b57e1fb85/raw/ccea5f652cc33a979de02d6e0fe193db0c5bdfb1/aeslua.lua")
@@ -41,5 +41,5 @@ function checkForUpdates()
   shell.run("wget https://raw.githubusercontent.com/rxi/json.lua/master/json.lua json.lua")
 
   fs.delete("utils.lua")
-  shell.run("wget https://akatsuki.nekoweb.org/cc/velkysmp/utils.lua utils.lua")
+  shell.run("wget https://mldkyt.nekoweb.org/cc/velkysmp/utils.lua utils.lua")
 end

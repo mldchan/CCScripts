@@ -17,7 +17,7 @@ local json = require("json")
 local config = json.decode(readFile("config.json"))
 local mon = peripheral.wrap("monitor_1")
 
-local news, message = http.get("https://akatsuki.nekoweb.org/news.json")
+local news, message = http.get("https://mldkyt.nekoweb.org/news.json")
 print("Message: ", message)
 local news1 = news.readAll()
 print("Response: ", news1)

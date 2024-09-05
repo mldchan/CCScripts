@@ -12,7 +12,7 @@
 -- You should have received a copy of the GNU General Public License along with this program. 
 -- If not, see <https://www.gnu.org/licenses/>.
 
--- wget run https://akatsuki.nekoweb.org/cc/velkysmp/starter/startup.lua
+-- wget run https://mldkyt.nekoweb.org/cc/velkysmp/starter/startup.lua
 
 function downloadFile(f, l)
     print(f .. ": downloading update..")
@@ -41,16 +41,16 @@ function downloadFile(f, l)
     print(f .. ": done updating.")
 end
 
-downloadFile("startup", "https://akatsuki.nekoweb.org/cc/velkysmp/starter/startup.lua")
+downloadFile("startup", "https://mldkyt.nekoweb.org/cc/velkysmp/starter/startup.lua")
 downloadFile("json", "https://raw.githubusercontent.com/rxi/json.lua/master/json.lua")
-downloadFile("utils", "https://akatsuki.nekoweb.org/cc/velkysmp/utils.lua")
-downloadFile("main", "https://akatsuki.nekoweb.org/cc/velkysmp/starter/main.lua")
+downloadFile("utils", "https://mldkyt.nekoweb.org/cc/velkysmp/utils.lua")
+downloadFile("main", "https://mldkyt.nekoweb.org/cc/velkysmp/starter/main.lua")
 
 require("utils")
 local json = require("json")
 
 -- startup alret
-http.post("https://akatsuki.nekoweb.org/webhook", json.encode({
+http.post("https://mldkyt.nekoweb.org/webhook", json.encode({
     content = "Computer " .. os.getComputerID() .. " has been started!"
 }), {
     ["Content-Type"] = "application/json"
@@ -60,7 +60,7 @@ shell.run("main.lua")
 
 -- reboot and alert
 
-http.post("https://akatsuki.nekoweb.org/webhook", json.encode({
+http.post("https://mldkyt.nekoweb.org/webhook", json.encode({
     content = "Computer " .. os.getComputerID() .. " has been rebooted!"
 }), {
     ["Content-Type"] = "application/json"
