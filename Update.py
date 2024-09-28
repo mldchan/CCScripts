@@ -1,3 +1,4 @@
+import datetime
 import os
 import json
 import requests
@@ -69,12 +70,20 @@ def process_file(file_path):
     if upload_response.status_code == 200:
         print(f"File '{relative_path}' updated.")
 
+def upload_to_github():
+    os.system("git add .")
+    date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    os.system(f"git commit -m 'Update files on {date}'")
+    os.system("git push")
+
 # Start a thread for each file
 threads = []
 for file_path in files:
     thread = threading.Thread(target=process_file, args=(file_path,))
     thread.start()
     threads.append(thread)
+
+threads.append(threading.Thread(target=upload_to_github))
 
 print(f"Running {len(threads)} threads...")
 
