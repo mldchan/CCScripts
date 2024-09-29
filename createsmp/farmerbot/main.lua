@@ -25,7 +25,7 @@ local function main()
             if not hitWall then
                 flipped = not flipped
             end
-            if flipped and hitWall then
+            if flipped and not hitWall then
                 turtle.turnLeft()
             else
                 turtle.turnRight()
