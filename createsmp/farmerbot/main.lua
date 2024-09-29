@@ -13,6 +13,7 @@ end
 
 local function main()
     flipped = false
+    hitWall = false
     while true do
         if not turtle.forward() then
             if flipped then
@@ -20,10 +21,11 @@ local function main()
             else
                 turtle.turnLeft()
             end
-            if turtle.forward() then
+            hitWall = turtle.forward()
+            if not hitWall then
                 flipped = not flipped
             end
-            if flipped then
+            if flipped and hitWall then
                 turtle.turnLeft()
             else
                 turtle.turnRight()
