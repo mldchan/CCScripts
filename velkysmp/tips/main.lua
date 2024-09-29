@@ -25,7 +25,7 @@ function renderTip()
         printTitle("How to change billboard color")
         mon.setCursorPos(1, 3)
         prettyWrite(mon,
-            "To change the color of the billboard, you can use the VelkySMP site (https://velkysmp-mon.vercel.app) and customize your profile. To get a profile customization key, you can ping Akatsuki2555 on Discord. DO NOT DM THEM, THEY DO NOT ACCEPT ANY DM'S! If you change your profile settings, all of the changes will be reflected both on the site and the billboard.")
+            "To change the color of the billboard, you can use the VelkySMP site (https://velkysmp-mon.vercel.app) and customize your profile. To get a profile customization key, you can ping mldchan on Discord. DO NOT DM THEM, THEY DO NOT ACCEPT ANY DM'S! If you change your profile settings, all of the changes will be reflected both on the site and the billboard.")
     elseif tip == 2 then
         printTitle("Viewing the full list")
         mon.setCursorPos(1, 3)

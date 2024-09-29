@@ -83,7 +83,9 @@ for file_path in files:
     thread.start()
     threads.append(thread)
 
-threads.append(threading.Thread(target=commit))
+commit_thread = threading.Thread(target=commit)
+commit_thread.start()
+threads.append(commit_thread)
 
 print(f"Running {len(threads)} threads...")
 

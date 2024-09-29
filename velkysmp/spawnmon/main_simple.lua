@@ -87,7 +87,7 @@ function drawMainScreen()
     end
 
     mon.setCursorPos(1, mon_height - 2)
-    mon.write("Akatsuki2555's VelkySMP Status Monitor v" .. VERSION .. ": CC edition")
+    mon.write("mldchan's VelkySMP Status Monitor v" .. VERSION .. ": CC edition")
     mon.setCursorPos(1, mon_height - 1)
     mon.write("Check her out on mldkyt.nekoweb.org and sign the guestbook at akatsuki.atabook.org!")
     mon.setCursorPos(1, mon_height)
@@ -99,7 +99,7 @@ json = require("json")
 mon.clear()
 
 mon.setCursorPos(1, 1)
-mon.write("Akatsuki2555's VelkySMP monitor - since 2024/02/25!")
+mon.write("mldchan's VelkySMP monitor - since 2024/02/25!")
 
 mon.setCursorPos(2, 3)
 mon.write("Refreshing... this may take a while")

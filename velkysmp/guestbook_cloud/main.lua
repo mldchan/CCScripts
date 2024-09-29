@@ -17,7 +17,7 @@ local json = require("json")
 local guestbookEntries = {}
 
 print("Fetching guestbook entries...")
-request = http.get("https://akatsuki2555-api.vercel.app/api/velkysmpguestbook/get")
+request = http.get("https://mldchan-api.vercel.app/api/velkysmpguestbook/get")
 guestbookEntries = json.decode(request.readAll())
 request.close()
 
@@ -117,7 +117,7 @@ function drawScreen()
         table.insert(guestbookEntries, { title = playerName, content = content })
 
         request = http.post({
-            url = "https://akatsuki2555-api.vercel.app/api/velkysmpguestbook/add",
+            url = "https://mldchan-api.vercel.app/api/velkysmpguestbook/add",
             body = json.encode({ title = playerName, content = content }),
             headers = { ["Content-Type"] = "application/json" }
         })
@@ -162,7 +162,7 @@ while true do
         mon.setCursorPos(2, 10)
         mon.write("Refetching guestbook entries...")
 
-        request = http.get("https://akatsuki2555-api.vercel.app/api/velkysmpguestbook/get")
+        request = http.get("https://mldchan-api.vercel.app/api/velkysmpguestbook/get")
         guestbookEntries = json.decode(request.readAll())
         request.close()
 
