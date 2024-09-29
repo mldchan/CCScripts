@@ -22,12 +22,7 @@ local function main()
             end
 
             if not turtle.forward() then
-                flipped = not flipped
-                if flipped then
-                    turtle.turnLeft()
-                else
-                    turtle.turnRight()
-                end
+                turtle.turnLeft()
             end
 
             if flipped then
