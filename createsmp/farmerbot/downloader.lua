@@ -3,10 +3,10 @@ fs.delete("main.lua")
 fs.delete("setup.lua")
 fs.delete("startup.lua")
 
-shell.run("wget https://mldkyt.nekoweb.org/cc/createsmp/estrogenmanager/downloader.lua downloader.lua")
-shell.run("wget https://mldkyt.nekoweb.org/cc/createsmp/estrogenmanager/main.lua main.lua")
-shell.run("wget https://mldkyt.nekoweb.org/cc/createsmp/estrogenmanager/setup.lua setup.lua")
-shell.run("wget https://mldkyt.nekoweb.org/cc/createsmp/estrogenmanager/startup.lua startup.lua")
+shell.run("wget https://mldkyt.nekoweb.org/cc/createsmp/farmerbot/downloader.lua downloader.lua")
+shell.run("wget https://mldkyt.nekoweb.org/cc/createsmp/farmerbot/main.lua main.lua")
+shell.run("wget https://mldkyt.nekoweb.org/cc/createsmp/farmerbot/setup.lua setup.lua")
+shell.run("wget https://mldkyt.nekoweb.org/cc/createsmp/farmerbot/startup.lua startup.lua")
 if not fs.exists("utils.lua") then
     shell.run("wget https://mldkyt.nekoweb.org/cc/velkysmp/utils.lua utils.lua")
 end
