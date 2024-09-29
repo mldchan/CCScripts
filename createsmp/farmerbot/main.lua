@@ -11,22 +11,28 @@ function selectWheat()
     return false
 end
 
-local function flip()
-    turtle.turnRight()
-    turtle.turnRight()
-end
-
-while true do
-    if not turtle.forward() then
-        turtle.turnRight()
+local function main()
+    flipped = false
+    while true do
         if not turtle.forward() then
-            flip()
-            if not turtle.forward() then
-                flip()
+            if flipped then
+                turtle.turnRight()
+            else
+                turtle.turnLeft()
+            end
+            if turtle.forward() then
+                flipped = not flipped
+            end
+            if flipped then
+                turtle.turnRight()
+            else
+                turtle.turnLeft()
             end
         end
+
+        turtle.placeDown()
+        os.sleep(0.05)
     end
-    selectWheat()
-    turtle.placeDown()
-    os.sleep(0.05)
 end
+
+main()
