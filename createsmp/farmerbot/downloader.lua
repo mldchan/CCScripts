@@ -5,7 +5,6 @@ fs.delete("startup.lua")
 
 shell.run("wget https://mldkyt.nekoweb.org/cc/createsmp/farmerbot/downloader.lua downloader.lua")
 shell.run("wget https://mldkyt.nekoweb.org/cc/createsmp/farmerbot/main.lua main.lua")
-shell.run("wget https://mldkyt.nekoweb.org/cc/createsmp/farmerbot/setup.lua setup.lua")
 shell.run("wget https://mldkyt.nekoweb.org/cc/createsmp/farmerbot/startup.lua startup.lua")
 if not fs.exists("utils.lua") then
     shell.run("wget https://mldkyt.nekoweb.org/cc/velkysmp/utils.lua utils.lua")
