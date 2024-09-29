@@ -71,7 +71,10 @@ def process_file(file_path):
         print(f"File '{relative_path}' updated.")
 
 def commit():
-    current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    current_time = datetime.datetime.now().strftime("%Ytoshi%mgatsu%dhi %H:%M:%S")
+    current_time = current_time.replace("toshi", "年")
+    current_time = current_time.replace("gatsu", "月")
+    current_time = current_time.replace("hi", "日")
     commit_message = f"Update files - {current_time}"
     os.system("git add .")
     os.system(f"git commit -m \"{commit_message}\"")
