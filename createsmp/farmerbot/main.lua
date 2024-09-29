@@ -17,21 +17,23 @@ local function main()
         if not turtle.forward() then
             if flipped then
                 turtle.turnRight()
+                if not turtle.forward() then
+                    turtle.turnLeft()
+                    turtle.turnLeft()
+                else
+                    turtle.turnRight()
+                    flipped = false
+                end
             else
                 turtle.turnLeft()
+                if not turtle.forward() then
+                    turtle.turnRight()
+                    turtle.turnRight()
+                else
+                    turtle.turnLeft()
+                    flipped = true
+                end
             end
-
-            if not turtle.forward() then
-                turtle.turnLeft()
-            end
-
-            if flipped then
-                turtle.turnLeft()
-            else
-                turtle.turnRight()
-            end
-
-            flipped = not flipped
         end
 
         selectWheat()
