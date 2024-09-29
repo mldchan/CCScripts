@@ -26,7 +26,7 @@ local function main()
             else
                 turtle.turnLeft()
                 if not turtle.forward() then
-                    turtle.turnRight()
+                    turtle.turnLeft()
                 else
                     turtle.turnLeft()
                     flipped = true
