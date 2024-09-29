@@ -30,6 +30,7 @@ local function main()
             end
         end
 
+        selectWheat()
         turtle.placeDown()
         os.sleep(0.05)
     end
