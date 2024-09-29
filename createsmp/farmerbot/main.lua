@@ -24,9 +24,9 @@ local function main()
                 flipped = not flipped
             end
             if flipped then
-                turtle.turnRight()
-            else
                 turtle.turnLeft()
+            else
+                turtle.turnRight()
             end
         end
 
