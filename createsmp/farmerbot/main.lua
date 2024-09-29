@@ -22,7 +22,6 @@ local function main()
                 turtle.turnLeft()
             end
             if not turtle.forward() then
-                flipped = not flipped
                 flipCompletely = true
             end
             if flipped then
@@ -38,6 +37,7 @@ local function main()
                     turtle.turnRight()
                 end
             end
+            flipped = not flipped
         end
 
         selectWheat()
