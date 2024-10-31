@@ -2,7 +2,7 @@
 setlocal enabledelayedexpansion
 
 :: Get the current date and time
-for /f "tokens=1-5 delims=/:- " %%a in ('echo %date% %time%') do (
+for /f "tokens=1,2,3,4,5 delims=/-:. " %%a in ("%date% %time%") do (
     set day=%%a
     set month=%%b
     set year=%%c
