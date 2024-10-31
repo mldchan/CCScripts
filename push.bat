@@ -1,22 +1,29 @@
 @echo off
-setlocal enabledelayedexpansion
-
-:: Get the current date and time
-for /f "tokens=1,2,3,4,5 delims=/-:. " %%a in ("%date% %time%") do (
-    set day=%%a
-    set month=%%b
+:: Get the current date and time in the format you want
+for /f "tokens=1-4 delims=/:" %%a in ('date /t & time /t') do (
+    set month=%%a
+    set day=%%b
     set year=%%c
     set hour=%%d
-    set minute=%%e
 )
 
-:: Format the commit message
-set commitMessage=Commit %year%/%month%/%day% at %hour%:%minute%
+:: Format time to 24-hour format
+if %hour% LSS 10 set hour=0%hour%
+if %time:~6,2% LSS 12 set suffix=AM
+if %time:~6,2% GTR 12 set suffix=PM
 
-:: Change to the repository directory
-cd /path/to/your/repo
+:: Change directory to your repo
+cd /d "C:\path\to\your\repo"
 
-:: Stage, commit, and push changes
+:: Stage all changes
 git add .
-git commit -m "%commitMessage%"
+
+:: Commit with the formatted date and time
+set commit_msg=Update on %year%/%month%/%day% at %hour%:00 %suffix%
+git commit -m "%commit_msg%"
+
+:: Push the commit to the remote repository
 git push origin main
+
+@echo Commit and push complete!
+pause
