@@ -2,21 +2,21 @@
 setlocal enabledelayedexpansion
 
 :: Get the current date and time
-for /f "tokens=1-5 delims=/:- " %%d in ("%date% %time%") do (
-    set year=%%d
-    set month=%%e
-    set day=%%f
-    set hour=%%g
-    set minute=%%h
+for /f "tokens=1-5 delims=/:- " %%a in ('echo %date% %time%') do (
+    set day=%%a
+    set month=%%b
+    set year=%%c
+    set hour=%%d
+    set minute=%%e
 )
 
 :: Format the commit message
-set commitMessage=Commit !year!/!month!/!day! at !hour!:!minute!
+set commitMessage=Commit %year%/%month%/%day% at %hour%:%minute%
 
 :: Change to the repository directory
 cd /path/to/your/repo
 
 :: Stage, commit, and push changes
 git add .
-git commit -m "!commitMessage!"
+git commit -m "%commitMessage%"
 git push origin main
